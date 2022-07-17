@@ -20,6 +20,8 @@ module.exports = {
   },
   plugins: ["react", "@typescript-eslint"],
   rules: {
+    "react/prop-types": 0,
+    "react/require-default-props": 0,
     "react/react-in-jsx-scope": 0,
     "react/jsx-props-no-spreading": 0,
     "jsx-a11y/label-has-associated-control": [2, { assert: "either" }],
