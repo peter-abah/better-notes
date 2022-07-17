@@ -1,8 +1,12 @@
+import { Routes, Route } from "react-router-dom";
+import { Notes, Register } from "./routes";
+
 function App() {
   return (
-    <div className="text-4xl font-bold my-40 mx-auto">
-      Better Notes
-    </div>
+    <Routes>
+      <Route index element={<Notes />} />
+      <Route path="register" element={<Register />} />
+    </Routes>
   );
 }
 
