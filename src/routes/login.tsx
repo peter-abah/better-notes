@@ -4,6 +4,9 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import { loginUser } from "../api/auth";
+import { getErrorMessages } from "../lib/errors";
+
 import "./form.css";
 
 const formSchema = z.object({
@@ -16,16 +19,24 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 function Login() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>({
+  const { register, handleSubmit, formState, setError } = useForm<FormData>({
     resolver: zodResolver(formSchema),
   });
 
-  const onSubmit = (data: any) => {
-    alert(JSON.stringify(data));
+  // Adding server error to errors type
+  type ErrorsType = typeof formState.errors & { server?: { message: string } };
+
+  // eslint-disable-next-line prefer-destructuring
+  const errors: ErrorsType = formState.errors;
+
+  const onSubmit = async (data: FormData) => {
+    try {
+      const user = await loginUser(data);
+      window.alert(JSON.stringify(user));
+    } catch (e) {
+      const serverErrors = await getErrorMessages(e as Error);
+      serverErrors.forEach((error) => setError(error.name, error));
+    }
   };
 
   return (
@@ -71,6 +82,7 @@ function Login() {
               <small role="alert">{errors.password.message}</small>
             )}
           </div>
+          {errors.server && <small role="alert">{errors.server.message}</small>}
 
           <button type="submit" className="submit-btn">
             Sign in

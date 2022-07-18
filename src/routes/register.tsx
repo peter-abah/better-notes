@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import { registerUser } from "../api/auth";
+import { getErrorMessages } from "../lib/errors";
 import "./form.css";
 
 const formSchema = z
@@ -22,16 +24,23 @@ const formSchema = z
 type FormData = z.infer<typeof formSchema>;
 
 function Register() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>({
+  const { register, handleSubmit, formState, setError } = useForm<FormData>({
     resolver: zodResolver(formSchema),
   });
 
-  const onSubmit = (data: any) => {
-    alert(JSON.stringify(data));
+  // Add server errors to errors type
+  type ErrorsType = typeof formState.errors & { server?: { message: string } };
+  // eslint-disable-next-line prefer-destructuring
+  const errors: ErrorsType = formState.errors;
+
+  const onSubmit = async (data: FormData) => {
+    try {
+      const user = await registerUser(data);
+      alert(JSON.stringify(user));
+    } catch (e) {
+      const serverErrors = await getErrorMessages(e as Error);
+      serverErrors.forEach((error) => setError(error.name, error));
+    }
   };
 
   return (
@@ -93,6 +102,7 @@ function Register() {
             )}
           </div>
 
+          {errors.server && <small role="alert">{errors.server.message}</small>}
           <button type="submit" className="submit-btn">
             Sign up
           </button>
