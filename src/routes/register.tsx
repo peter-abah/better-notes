@@ -1,10 +1,10 @@
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { registerUser } from "../api/auth";
+import { useAuth } from "../contexts/auth_context";
 import { getErrorMessages } from "../lib/errors";
 import "./form.css";
 
@@ -24,6 +24,9 @@ const formSchema = z
 type FormData = z.infer<typeof formSchema>;
 
 function Register() {
+  const { register: registerUser } = useAuth();
+  const navigate = useNavigate();
+
   const { register, handleSubmit, formState, setError } = useForm<FormData>({
     resolver: zodResolver(formSchema),
   });
@@ -35,8 +38,8 @@ function Register() {
 
   const onSubmit = async (data: FormData) => {
     try {
-      const user = await registerUser(data);
-      alert(JSON.stringify(user));
+      await registerUser(data);
+      navigate("/", { replace: true });
     } catch (e) {
       const serverErrors = await getErrorMessages(e as Error);
       serverErrors.forEach((error) => setError(error.name, error));

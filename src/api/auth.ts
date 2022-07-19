@@ -1,11 +1,6 @@
 import { APIError } from "../lib/errors";
-
-const BASE_URL = "http://localhost:3001/api/v1";
-
-export interface User {
-  email: string;
-  token: string;
-}
+import { defaultHeaders, BASE_URL } from ".";
+import { User } from "../lib/types";
 
 const getToken = (res: Response) => {
   const authHeader = res.headers.get("Authorization");
@@ -14,10 +9,11 @@ const getToken = (res: Response) => {
   return authHeader.split(" ")[1];
 };
 
-interface LoginData {
+export interface LoginData {
   email: string;
   password: string;
 }
+
 export const loginUser = async (loginData: LoginData) => {
   const res = await fetch(`${BASE_URL}/sign_in`, {
     method: "POST",
@@ -36,14 +32,15 @@ export const loginUser = async (loginData: LoginData) => {
   return {
     email: data.user.email,
     token: getToken(res),
-  };
+  } as User;
 };
 
-interface RegisterData {
+export interface RegisterData {
   email: string;
   password: string;
   password_confirmation: string;
 }
+
 export const registerUser = async (registerData: RegisterData) => {
   const res = await fetch(`${BASE_URL}/sign_up`, {
     method: "POST",
@@ -62,5 +59,15 @@ export const registerUser = async (registerData: RegisterData) => {
   return {
     email: data.user.email,
     token: getToken(res),
-  };
+  } as User;
+};
+
+export const logoutUser = async () => {
+  const res = await fetch(`${BASE_URL}/sign_out`, {
+    method: "DELETE",
+    mode: "cors",
+    headers: defaultHeaders(),
+  });
+
+  if (!res.ok) throw new APIError("Logout error", res);
 };
