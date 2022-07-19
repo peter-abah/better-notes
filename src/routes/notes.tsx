@@ -1,15 +1,27 @@
 import { useAuth } from "../contexts/auth_context";
+import useStore from "../lib/store";
 
 function Notes() {
-  const { user, logout } = useAuth();
+  const { logout } = useAuth();
+  const notes = useStore((state) => state.notes);
 
   return (
-    <div className="text-3xl font-bold p-12">
-      Better Notes {JSON.stringify(user)}
+    <>
+      <h1 className="text-3xl font-bold p-12">Better Notes</h1>
+
       <button type="button" onClick={logout}>
-        Logout
+        Log out
       </button>
-    </div>
+
+      <div className="m-4">
+        {notes.map((note) => (
+          <div key={note.id} className="p-4 my-4 bg-neutral-100 rounded-lg">
+            <h2 className="font-bold mb-2">{note.title}</h2>
+            <p>{note.content}</p>
+          </div>
+        ))}
+      </div>
+    </>
   );
 }
 
