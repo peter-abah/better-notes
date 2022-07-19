@@ -3,11 +3,8 @@ import { useNavigate, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-
 import { useAuth } from "../contexts/auth_context";
 import { getErrorMessages } from "../lib/errors";
-
-import "./form.css";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
@@ -29,8 +26,10 @@ function Login() {
   // Adding server error to errors type
   type ErrorsType = typeof formState.errors & { server?: { message: string } };
 
+  // not using destruring since it is easier to type errors without it
   // eslint-disable-next-line prefer-destructuring
   const errors: ErrorsType = formState.errors;
+  const { isSubmitting } = formState;
 
   const onSubmit = async (data: FormData) => {
     try {
@@ -68,7 +67,11 @@ function Login() {
               type="email"
               {...register("email")}
             />
-            {errors.email && <small role="alert">{errors.email.message}</small>}
+            {errors.email && (
+              <small role="alert" className="form-error">
+                {errors.email.message}
+              </small>
+            )}
           </div>
 
           <div className="form-field">
@@ -82,12 +85,22 @@ function Login() {
               {...register("password")}
             />
             {errors.password && (
-              <small role="alert">{errors.password.message}</small>
+              <small role="alert" className="form-error">
+                {errors.password.message}
+              </small>
             )}
           </div>
-          {errors.server && <small role="alert">{errors.server.message}</small>}
+          {errors.server && (
+            <small role="alert" className="form-error">
+              {errors.server.message}
+            </small>
+          )}
 
-          <button type="submit" className="submit-btn">
+          <button
+            type="submit"
+            className="form-submit-btn disabled:!bg-neutral-700"
+            disabled={isSubmitting}
+          >
             Sign in
           </button>
         </form>

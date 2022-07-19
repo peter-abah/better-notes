@@ -6,7 +6,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useAuth } from "../contexts/auth_context";
 import { getErrorMessages } from "../lib/errors";
-import "./form.css";
 
 const formSchema = z
   .object({
@@ -35,6 +34,7 @@ function Register() {
   type ErrorsType = typeof formState.errors & { server?: { message: string } };
   // eslint-disable-next-line prefer-destructuring
   const errors: ErrorsType = formState.errors;
+  const { isSubmitting } = formState;
 
   const onSubmit = async (data: FormData) => {
     try {
@@ -106,7 +106,11 @@ function Register() {
           </div>
 
           {errors.server && <small role="alert">{errors.server.message}</small>}
-          <button type="submit" className="submit-btn">
+          <button
+            type="submit"
+            className="form-submit-btn disabled:bg-neutral-700"
+            disabled={isSubmitting}
+          >
             Sign up
           </button>
         </form>
