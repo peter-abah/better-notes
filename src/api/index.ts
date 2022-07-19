@@ -1,11 +1,40 @@
+import { APIError } from "../lib/errors";
+
 export const BASE_URL = "http://localhost:3001/api/v1";
 
 export const defaultHeaders = () => {
-  let user = window.localStorage.get("user");
-  user = user ? JSON.parse(user) : {};
+  const userData = window.localStorage.getItem("user");
+  const user = userData ? JSON.parse(userData) : {};
 
   return {
     "Content-Type": "application/json",
     ...(user.token && { Authorization: `Bearer ${user.token}` }),
   };
+};
+
+// Adds auth header, content type type and base url before fetching resource
+// e.g customFetch("/notes").
+// Also throws error for 400 and 500 status codes
+export const customFetch = async (
+  resource: string,
+  options?: Parameters<typeof fetch>[1]
+) => {
+  try {
+    const url = `${BASE_URL}${resource}`;
+
+    const defaultOptions: any = {
+      mode: "cors",
+    };
+    defaultOptions.headers =
+      options?.headers instanceof Headers
+        ? options.headers
+        : new Headers({ ...defaultHeaders(), ...options?.headers });
+    const res = await fetch(url, { ...options, ...defaultOptions });
+    if (!res.ok) throw new APIError("Request error", res);
+
+    return res;
+  } catch (e: any) {
+    alert(e.message);
+    throw e;
+  }
 };
