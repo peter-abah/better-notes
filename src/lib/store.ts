@@ -27,11 +27,16 @@ const useStore = create<State>()((set) => ({
     return note;
   },
   updateNote: async (note) => {
-    set((state) => {
-      const filtered = state.notes.filter(({ id }) => id !== note.id);
-      return { notes: [...filtered, note] };
+    const res = await customFetch(`/notes/${note.id}`, {
+      method: "PATCH",
+      body: JSON.stringify({ note }),
     });
-    return note;
+    const { note: updated } = await res.json();
+    set((state) => {
+      const filtered = state.notes.filter(({ id }) => id !== updated.id);
+      return { notes: [...filtered, updated] };
+    });
+    return updated;
   },
   deleteNote: (id) =>
     set((state) => {

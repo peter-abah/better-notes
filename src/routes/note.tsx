@@ -28,9 +28,9 @@ function Note() {
         </button>
       </header>
 
-      <section className="px-4">
-        <h1 className="text-xl mb-3">{note.title}</h1>
-        <p className="text-lg">{note.content}</p>
+      <section className="px-4 py-2">
+        <h1 className="text-lg font-bold mb-3">{note.title}</h1>
+        <p>{note.content}</p>
       </section>
     </main>
   );
