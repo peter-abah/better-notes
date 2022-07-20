@@ -38,11 +38,13 @@ const useStore = create<State>()((set) => ({
     });
     return updated;
   },
-  deleteNote: (id) =>
+  deleteNote: async (id) => {
+    await customFetch(`/notes/${id}`, { method: "DELETE" });
     set((state) => {
       const filtered = state.notes.filter((note) => note.id !== id);
       return { notes: filtered };
-    }),
+    });
+  },
   fetchNotes: async () => {
     // TODO: Handle errors
     const res = await customFetch("/notes");

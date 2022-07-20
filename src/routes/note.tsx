@@ -4,13 +4,26 @@ import useStore from "../lib/store";
 
 function Note() {
   const navigate = useNavigate();
-  const { id } = useParams() as { id: string };
+  const { id: idStr } = useParams() as { id: string };
+  const id = parseInt(idStr, 10);
+
+  const deleteNote = useStore((state) => state.deleteNote);
   const notes = useStore((state) => state.notes);
-  const note = notes.find((n) => n.id === parseInt(id, 10));
+  const note = notes.find((n) => n.id === id);
 
   if (note == null) {
     return <div className="p-8 text-xl font-bold">Note not found</div>;
   }
+
+  const handleDelete = async () => {
+    const shouldDelete = window.confirm(
+      "Are you sure you want to delete this note"
+    );
+    if (!shouldDelete) return;
+    await deleteNote(id);
+    // TODO: Add alert here
+    navigate("/");
+  };
 
   return (
     <main>
@@ -23,7 +36,7 @@ function Note() {
           <MdEdit className="text-2xl" />
         </Link>
 
-        <button type="button" onClick={() => "TODO: delete"}>
+        <button type="button" onClick={handleDelete}>
           <MdDelete className="text-2xl" />
         </button>
       </header>
