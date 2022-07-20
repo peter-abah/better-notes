@@ -3,6 +3,7 @@ import { MdAdd } from "react-icons/md";
 
 import { useAuth } from "../contexts/auth_context";
 import useStore from "../lib/store";
+import NotePreview from "../components/note_preview";
 
 function Notes() {
   const { logout } = useAuth();
@@ -24,10 +25,7 @@ function Notes() {
 
       <div>
         {notes.map((note) => (
-          <div key={note.id} className="p-4 my-4 bg-neutral-100 rounded-lg">
-            <h2 className="font-bold mb-2">{note.title}</h2>
-            <p>{note.content}</p>
-          </div>
+          <NotePreview key={note.id} note={note} />
         ))}
       </div>
 
