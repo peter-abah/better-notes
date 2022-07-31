@@ -8,13 +8,7 @@ import {
   Login,
   PrivateRoute,
 } from "./routes";
-import useStore from "./lib/store";
 import AuthProvider from "./contexts/auth_context";
-
-// Fetch notes from server on page load
-if (typeof window !== "undefined") {
-  useStore.getState().fetchNotes();
-}
 
 function App() {
   return (

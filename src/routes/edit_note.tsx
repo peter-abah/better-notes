@@ -8,14 +8,14 @@ function EditNote() {
 
   const updateNote = useStore((state) => state.updateNote);
   const notes = useStore((state) => state.notes);
-  const note = notes.find((n) => n.id === parseInt(id, 10));
+  const note = notes.find((n) => n.id === id);
 
   if (note == null) {
     return <p className="p-6 font-bold text-xl">Note not found</p>;
   }
 
-  const onSubmit = async (data: FormData) => {
-    await updateNote({ ...data, id: note.id });
+  const onSubmit = (data: FormData) => {
+    updateNote({ ...data, id: note.id });
     navigate(`/notes/${id}`, { replace: true });
   };
 

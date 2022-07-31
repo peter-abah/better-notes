@@ -6,8 +6,8 @@ function NewNote() {
   const navigate = useNavigate();
   const createNote = useStore((state) => state.createNote);
 
-  const onSubmit = async (data: FormData) => {
-    const note = await createNote(data);
+  const onSubmit = (data: FormData) => {
+    const note = createNote(data);
     navigate(`/notes/${note.id}`, { replace: true });
   };
 

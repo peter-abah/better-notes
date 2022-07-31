@@ -4,7 +4,7 @@ export interface User {
 }
 
 export interface Note {
-  id: number;
+  id: string;
   title: string;
   content: string;
 }

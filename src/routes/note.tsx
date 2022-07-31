@@ -4,8 +4,7 @@ import useStore from "../lib/store";
 
 function Note() {
   const navigate = useNavigate();
-  const { id: idStr } = useParams() as { id: string };
-  const id = parseInt(idStr, 10);
+  const { id } = useParams() as { id: string };
 
   const deleteNote = useStore((state) => state.deleteNote);
   const notes = useStore((state) => state.notes);
@@ -15,12 +14,12 @@ function Note() {
     return <div className="p-8 text-xl font-bold">Note not found</div>;
   }
 
-  const handleDelete = async () => {
+  const handleDelete = () => {
     const shouldDelete = window.confirm(
       "Are you sure you want to delete this note"
     );
     if (!shouldDelete) return;
-    await deleteNote(id);
+    deleteNote(id);
     // TODO: Add alert here
     navigate("/");
   };
