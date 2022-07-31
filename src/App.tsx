@@ -6,6 +6,7 @@ import {
   EditNote,
   Register,
   Login,
+  NotFound,
   PrivateRoute,
 } from "./routes";
 import AuthProvider from "./contexts/auth_context";
@@ -22,6 +23,7 @@ function App() {
         </Route>
         <Route path="sign_up" element={<Register />} />
         <Route path="sign_in" element={<Login />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </AuthProvider>
   );

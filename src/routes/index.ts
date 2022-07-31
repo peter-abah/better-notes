@@ -4,4 +4,5 @@ export { default as EditNote } from "./edit_note";
 export { default as NewNote } from "./new_note";
 export { default as Register } from "./register";
 export { default as Login } from "./login";
+export { default as NotFound } from "./not_found";
 export { default as PrivateRoute } from "./private_route";
