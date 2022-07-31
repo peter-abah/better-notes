@@ -1,14 +1,25 @@
-import { Link } from "react-router-dom";
-import { MdClose } from "react-icons/md";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { MdClose, MdAdd, MdFolder } from "react-icons/md";
+import useStore from "../lib/store";
+import CollectionFormModal, { FormData } from "./collection_form_modal";
 
 interface Props {
   isOpen: boolean;
   handleClose: () => void;
 }
 function SideBar({ isOpen, handleClose }: Props) {
-  if (!isOpen) {
-    return null;
-  }
+  const [isCollectionFormOpen, setIsCollectionFormOpen] = useState(false);
+  const createCollection = useStore((state) => state.createCollection);
+  const collections = useStore((state) => state.collections);
+  const navigate = useNavigate();
+
+  if (!isOpen) return null;
+
+  const saveCollection = (data: FormData) => {
+    const collection = createCollection(data);
+    navigate(`/collections/${collection.id}`);
+  };
   return (
     <aside className="fixed z-50 h-screen top-0 left-0 w-80 overflow-auto flex flex-col bg-white">
       <header className="p-6 flex justify-between">
@@ -18,23 +29,28 @@ function SideBar({ isOpen, handleClose }: Props) {
         </button>
       </header>
 
-      <section className="flex flex-col border-y">
+      <section className="flex flex-col py-2 border-y">
         <h2 className="font-bold px-6 py-3">Collections</h2>
-        <Link to="/" className="px-6 py-3">
-          Sample
-        </Link>
-        <Link to="/" className="px-6 py-3">
-          Sample
-        </Link>
-        <Link to="/" className="px-6 py-3">
-          Sample
-        </Link>
-        <Link to="/" className="px-6 py-3">
-          Sample
-        </Link>
-        <Link to="/" className="px-6 py-3">
-          Sample
-        </Link>
+
+        {collections.map((collection) => (
+          <Link
+            className="flex items-center py-3 px-6"
+            to={`/collections/${collection.id}`}
+            key={collection.id}
+          >
+            <MdFolder className="text-lg mr-3" />
+            {collection.name}
+          </Link>
+        ))}
+
+        <button
+          type="button"
+          className="flex items-center px-6 py-3"
+          onClick={() => setIsCollectionFormOpen(true)}
+        >
+          <MdAdd className="text-lg mr-3" />
+          Add new collection
+        </button>
       </section>
 
       <Link to="/" className="py-3 px-6">
@@ -47,6 +63,15 @@ function SideBar({ isOpen, handleClose }: Props) {
       >
         Theme
       </button>
+
+      {isCollectionFormOpen && (
+        <CollectionFormModal
+          title="Create collection"
+          onSubmit={saveCollection}
+          isOpen={isCollectionFormOpen}
+          onClose={() => setIsCollectionFormOpen(false)}
+        />
+      )}
     </aside>
   );
 }
