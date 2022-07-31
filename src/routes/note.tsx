@@ -1,6 +1,7 @@
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { MdArrowBackIos as MdBack, MdEdit, MdDelete } from "react-icons/md";
 import useStore from "../lib/store";
+import NoteNotFound from "../components/note_not_found";
 
 function Note() {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ function Note() {
   const note = notes.find((n) => n.id === id);
 
   if (note == null) {
-    return <div className="p-8 text-xl font-bold">Note not found</div>;
+    return <NoteNotFound />;
   }
 
   const handleDelete = () => {

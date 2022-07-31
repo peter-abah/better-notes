@@ -17,10 +17,15 @@ function App() {
       <Routes>
         <Route element={<PrivateRoute />}>
           <Route index element={<Notes />} />
-          <Route path="/notes/:id" element={<Note />} />
-          <Route path="/notes/new" element={<NewNote />} />
-          <Route path="/notes/edit/:id" element={<EditNote />} />
+
+          <Route path="notes">
+            <Route index element={<Notes />} />
+            <Route path=":id" element={<Note />} />
+            <Route path="new" element={<NewNote />} />
+            <Route path="edit/:id" element={<EditNote />} />
+          </Route>
         </Route>
+
         <Route path="sign_up" element={<Register />} />
         <Route path="sign_in" element={<Login />} />
         <Route path="*" element={<NotFound />} />
