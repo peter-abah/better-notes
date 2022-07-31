@@ -42,7 +42,7 @@ function Note() {
 
       <section className="px-4 py-2">
         <h1 className="text-lg font-bold mb-3">{note.title}</h1>
-        <p>{note.content}</p>
+        <p className="whitespace-pre-wrap">{note.content}</p>
       </section>
     </main>
   );
