@@ -7,6 +7,7 @@ export interface Note {
   id: string;
   title: string;
   content: string;
+  collection_id?: string;
 }
 
 export interface Collection {

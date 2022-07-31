@@ -1,14 +1,19 @@
 import { Link } from "react-router-dom";
 
-function NoteNotFound() {
+interface Props {
+  resource: string;
+  resourceLink?: string;
+}
+
+function ResourceNotFound({ resource, resourceLink = `/${resource}s` }: Props) {
   return (
     <main className="h-screen flex flex-col">
       <h1 className="p-4 text-lg text-xl font-bold">Better Notes</h1>
       <div className="flex flex-col items-center justify-center grow">
         <p className="mb-10 px-4">
-          Whoops, looks like this note does not exist
+          Whoops, looks like this {resource} does not exist
         </p>
-        <Link to="/notes" className="px-6 py-2 bg-black text-white">
+        <Link to={resourceLink} className="px-6 py-2 bg-black text-white">
           Go back
         </Link>
       </div>
@@ -16,4 +21,4 @@ function NoteNotFound() {
   );
 }
 
-export default NoteNotFound;
+export default ResourceNotFound;

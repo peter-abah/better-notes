@@ -18,6 +18,7 @@ function SideBar({ isOpen, handleClose }: Props) {
 
   const saveCollection = (data: FormData) => {
     const collection = createCollection(data);
+    handleClose();
     navigate(`/collections/${collection.id}`);
   };
   return (
@@ -29,6 +30,9 @@ function SideBar({ isOpen, handleClose }: Props) {
         </button>
       </header>
 
+      <Link to="/notes" className="px-6 py-3">
+        All Notes
+      </Link>
       <section className="flex flex-col py-2 border-y">
         <h2 className="font-bold px-6 py-3">Collections</h2>
 
@@ -36,6 +40,7 @@ function SideBar({ isOpen, handleClose }: Props) {
           <Link
             className="flex items-center py-3 px-6"
             to={`/collections/${collection.id}`}
+            onClick={handleClose}
             key={collection.id}
           >
             <MdFolder className="text-lg mr-3" />

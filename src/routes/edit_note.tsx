@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import useStore from "../lib/store";
 import NoteForm, { FormData } from "../components/note_form";
-import NoteNotFound from "../components/note_not_found";
+import ResourceNotFound from "../components/resource_not_found";
 
 function EditNote() {
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ function EditNote() {
   const note = notes.find((n) => n.id === id);
 
   if (note == null) {
-    return <NoteNotFound />;
+    return <ResourceNotFound resource="note" />;
   }
 
   const onSubmit = (data: FormData) => {
