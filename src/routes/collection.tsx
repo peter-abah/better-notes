@@ -22,14 +22,16 @@ function Collection() {
   const toggleSideBar = () => setIsSideBarOpen((state) => !state);
 
   return (
-    <main className="p-4">
-      <header className="flex justify-between items-center">
+    <main className="p-6">
+      <header className="flex justify-between items-center mb-6">
         <button type="button" onClick={toggleSideBar}>
           <span className="sr-only">Menu</span>
           <MdMenu className="text-2xl" />
         </button>
 
-        <h1 className="text-xl font-bold my-4">{collection.name}</h1>
+        <h1 className="text-xl font-bold grow text-center">
+          {collection.name}
+        </h1>
       </header>
 
       <div>

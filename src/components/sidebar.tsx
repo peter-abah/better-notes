@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { MdClose, MdAdd, MdFolder } from "react-icons/md";
+
+import { useAuth } from "../contexts/auth_context";
 import useStore from "../lib/store";
 import CollectionFormModal, { FormData } from "./collection_form_modal";
 
@@ -10,8 +12,11 @@ interface Props {
 }
 function SideBar({ isOpen, handleClose }: Props) {
   const [isCollectionFormOpen, setIsCollectionFormOpen] = useState(false);
+
   const createCollection = useStore((state) => state.createCollection);
   const collections = useStore((state) => state.collections);
+
+  const { logout } = useAuth();
   const navigate = useNavigate();
 
   if (!isOpen) return null;
@@ -67,6 +72,10 @@ function SideBar({ isOpen, handleClose }: Props) {
         onClick={() => alert("TODO")}
       >
         Theme
+      </button>
+
+      <button type="button" className="py-3 px-6 text-left" onClick={logout}>
+        Logout
       </button>
 
       {isCollectionFormOpen && (
