@@ -3,7 +3,7 @@ import { persist } from "zustand/middleware";
 import { nanoid } from "nanoid";
 import { Note, Collection } from "./types";
 
-interface State {
+interface Store {
   notes: Note[];
   createNote: (noteData: Omit<Note, "id">) => Note;
   deleteNote: (id: Note["id"]) => void;
@@ -12,13 +12,18 @@ interface State {
   createCollection: (collectionData: Pick<Collection, "name">) => Collection;
   deleteCollection: (id: Collection["id"]) => void;
   updateCollection: (collection: Collection) => Collection;
+  resetStore: () => void;
 }
 
-const useStore = create<State>()(
+const initialState = {
+  notes: [],
+  collections: [],
+};
+
+const useStore = create<Store>()(
   persist(
     (set) => ({
-      notes: [],
-      collections: [],
+      ...initialState,
       createNote: (noteData) => {
         const note = { ...noteData, id: nanoid() };
         set((state) => ({ notes: [...state.notes, note] }));
@@ -69,6 +74,8 @@ const useStore = create<State>()(
           return { collections: filtered };
         });
       },
+
+      resetStore: () => set(initialState),
     }),
     { name: "betternotes-storage" }
   )
