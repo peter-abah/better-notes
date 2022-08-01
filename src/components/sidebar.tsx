@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { MdClose, MdAdd, MdFolder } from "react-icons/md";
+import clsx from "clsx";
+import { MdClose, MdAdd, MdFolder, MdExpandMore } from "react-icons/md";
 
 import { useAuth } from "../contexts/auth_context";
 import useStore from "../lib/store";
@@ -12,6 +13,7 @@ interface Props {
 }
 function SideBar({ isOpen, handleClose }: Props) {
   const [isCollectionFormOpen, setIsCollectionFormOpen] = useState(false);
+  const [isCollectionSectionOpen, setIsCollectionSectionOpen] = useState(true);
 
   const createCollection = useStore((state) => state.createCollection);
   const collections = useStore((state) => state.collections);
@@ -19,6 +21,8 @@ function SideBar({ isOpen, handleClose }: Props) {
   const { logout } = useAuth();
   const navigate = useNavigate();
 
+  const toggleCollectionSection = () =>
+    setIsCollectionSectionOpen((state) => !state);
   if (!isOpen) return null;
 
   const saveCollection = (data: FormData) => {
@@ -27,8 +31,8 @@ function SideBar({ isOpen, handleClose }: Props) {
     navigate(`/collections/${collection.id}`);
   };
   return (
-    <aside className="fixed z-50 h-screen top-0 left-0 w-80 overflow-auto flex flex-col bg-white">
-      <header className="p-6 flex justify-between">
+    <aside className="fixed z-50 h-full top-0 left-0 w-80 py-6 overflow-auto flex flex-col bg-white">
+      <header className="px-6 pb-6 flex justify-between">
         <h1 className="text-lg font-bold">BetterNotes</h1>
         <button type="button" onClick={handleClose}>
           <MdClose className="text-2xl" />
@@ -38,20 +42,38 @@ function SideBar({ isOpen, handleClose }: Props) {
       <Link to="/notes" className="px-6 py-3">
         All Notes
       </Link>
-      <section className="flex flex-col py-2 border-y">
-        <h2 className="font-bold px-6 py-3">Collections</h2>
-
-        {collections.map((collection) => (
-          <Link
-            className="flex items-center py-3 px-6"
-            to={`/collections/${collection.id}`}
-            onClick={handleClose}
-            key={collection.id}
+      <section className="py-2 border-y">
+        <h2 className="font-bold px-6 py-3">
+          <button
+            type="button"
+            onClick={toggleCollectionSection}
+            className="flex justify-between items-center w-full"
           >
-            <MdFolder className="text-lg mr-3" />
-            {collection.name}
-          </Link>
-        ))}
+            Collections{" "}
+            <MdExpandMore
+              className={clsx("text-lg", {
+                "rotate-180": isCollectionSectionOpen,
+              })}
+            />
+          </button>
+        </h2>
+
+        {isCollectionSectionOpen && (
+          <ul className="flex flex-col">
+            {collections.map((collection) => (
+              <li key={collection.id}>
+                <Link
+                  className="flex items-center py-3 px-6"
+                  to={`/collections/${collection.id}`}
+                  onClick={handleClose}
+                >
+                  <MdFolder className="text-lg mr-3" />
+                  {collection.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
 
         <button
           type="button"
@@ -64,7 +86,7 @@ function SideBar({ isOpen, handleClose }: Props) {
       </section>
 
       <Link to="/" className="py-3 px-6">
-        Settings: TODO
+        Settings
       </Link>
       <button
         type="button"

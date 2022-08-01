@@ -6,6 +6,10 @@ html {
   scroll-behavior: smooth;
 }
 
+* {
+  transition: transform 0.25s ease-in;
+}
+
 @layer components {
   .form-input {
     border: 1px solid #eee;

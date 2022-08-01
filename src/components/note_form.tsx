@@ -28,7 +28,7 @@ function NoteForm({ defaultValues, onSubmit }: Props) {
 
   return (
     <main className="min-h-screen flex flex-col">
-      <header className="flex justify-between p-4 sticky top-0 bg-white">
+      <header className="flex justify-between px-6 py-4 sticky top-0 bg-white">
         <button type="button" className="mr-4" onClick={goBack}>
           <MdClose className="text-2xl" />
           <span className="sr-only">Cancel</span>
@@ -46,7 +46,7 @@ function NoteForm({ defaultValues, onSubmit }: Props) {
 
       <form
         id="note-form"
-        className="flex flex-col grow px-4"
+        className="flex flex-col grow px-6 pb-6"
         onSubmit={handleSubmit(onSubmit)}
       >
         <label htmlFor="title" className="sr-only">
@@ -56,12 +56,24 @@ function NoteForm({ defaultValues, onSubmit }: Props) {
           type="text"
           placeholder="Title"
           id="title"
-          className="w-full font-bold text-lg focus:outline-none"
+          className="w-full text-xl mb-2 focus:outline-none placeholder:text-neutral-600"
           aria-label="Title"
           {...register("title", { required: true })}
         />
 
-        <div className="flex gap-2 items-center py-2">
+        <label htmlFor="content" className="sr-only">
+          Content
+        </label>
+        <TextareaAutoSize
+          id="content"
+          aria-label="Body"
+          placeholder="Body"
+          className="w-full focus:outline-none placeholder:text-neutral-600"
+          minRows={20}
+          {...register("content", { required: true })}
+        />
+
+        <div className="flex gap-2 items-center mt-auto py-2">
           <label htmlFor="collection">Collection: </label>
           <select
             id="collection"
@@ -76,18 +88,6 @@ function NoteForm({ defaultValues, onSubmit }: Props) {
             ))}
           </select>
         </div>
-
-        <label htmlFor="content" className="sr-only">
-          Content
-        </label>
-        <TextareaAutoSize
-          id="content"
-          aria-label="Body"
-          placeholder="Body"
-          className="w-full focus:outline-none"
-          minRows={20}
-          {...register("content", { required: true })}
-        />
       </form>
     </main>
   );
