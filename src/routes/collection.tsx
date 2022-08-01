@@ -1,19 +1,26 @@
 import { useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { MdAdd, MdMenu } from "react-icons/md";
+import toast from "react-hot-toast";
 
 import useStore from "../lib/store";
 import NotePreview from "../components/note_preview";
 import SideBar from "../components/sidebar";
 import ResourceNotFound from "../components/resource_not_found";
 import OptionsMenu from "../components/options_menu";
+import ConfirmModal from "../components/confirm_modal";
 import CollectionFormModal, {
   FormData,
 } from "../components/collection_form_modal";
 
+const confirmDeleteMessage =
+  "Are you sure you want to delete this collection? All notes in the collection will also be deleted.";
+
 function Collection() {
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
   const [isCollectionFormOpen, setIsCollectionFormOpen] = useState(false);
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+
   const { id } = useParams() as { id: string };
   const navigate = useNavigate();
 
@@ -29,16 +36,13 @@ function Collection() {
   if (!collection) return <ResourceNotFound resource="collection" />;
 
   const saveCollection = (collectionData: FormData) => {
+    toast.success("Collection updated");
     updateCollection({ ...collection, ...collectionData });
   };
 
   const handleDeleteCollection = () => {
-    const shouldDelete = window.confirm(
-      "Are you sure you want to delete this collection? All notes in the collection will also be deleted."
-    );
-    if (!shouldDelete) return;
-
     deleteCollection(collection.id);
+    toast.success("Collection deleted");
     navigate("/");
   };
 
@@ -59,7 +63,7 @@ function Collection() {
         <OptionsMenu
           items={[
             { node: "Edit", onClick: () => setIsCollectionFormOpen(true) },
-            { node: "Delete", onClick: handleDeleteCollection },
+            { node: "Delete", onClick: () => setIsConfirmModalOpen(true) },
           ]}
         />
       </header>
@@ -94,6 +98,13 @@ function Collection() {
           title="Edit Collection"
         />
       )}
+
+      <ConfirmModal
+        text={confirmDeleteMessage}
+        isOpen={isConfirmModalOpen}
+        onConfirm={handleDeleteCollection}
+        onCancel={() => setIsConfirmModalOpen(false)}
+      />
     </main>
   );
 }

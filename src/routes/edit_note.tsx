@@ -1,4 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
+import toast from "react-hot-toast";
 import useStore from "../lib/store";
 import NoteForm, { FormData } from "../components/note_form";
 import ResourceNotFound from "../components/resource_not_found";
@@ -17,6 +18,7 @@ function EditNote() {
 
   const onSubmit = (data: FormData) => {
     updateNote({ ...data, id: note.id });
+    toast.success("Note updated");
     navigate(`/notes/${id}`, { replace: true });
   };
 

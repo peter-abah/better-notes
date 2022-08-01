@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TextareaAutoSize from "react-textarea-autosize";
 import { useForm } from "react-hook-form";
 import { MdClose, MdDone } from "react-icons/md";
 import useStore from "../lib/store";
 import { Note } from "../lib/types";
+import ConfirmModal from "./confirm_modal";
 
 export type FormData = Omit<Note, "id">;
 
@@ -12,6 +14,7 @@ interface Props {
   onSubmit: (data: FormData) => void;
 }
 function NoteForm({ defaultValues, onSubmit }: Props) {
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const navigate = useNavigate();
   const {
     handleSubmit,
@@ -20,16 +23,14 @@ function NoteForm({ defaultValues, onSubmit }: Props) {
   } = useForm<FormData>({ defaultValues });
   const collections = useStore((state) => state.collections);
 
-  const goBack = () => {
-    const shouldClose = window.confirm("Discard changes?");
-    if (!shouldClose) return;
-    navigate(-1);
-  };
-
   return (
     <main className="min-h-screen flex flex-col">
       <header className="flex justify-between px-6 py-4 sticky top-0 bg-white">
-        <button type="button" className="mr-4" onClick={goBack}>
+        <button
+          type="button"
+          className="mr-4"
+          onClick={() => setIsConfirmModalOpen(true)}
+        >
           <MdClose className="text-2xl" />
           <span className="sr-only">Cancel</span>
         </button>
@@ -89,6 +90,13 @@ function NoteForm({ defaultValues, onSubmit }: Props) {
           </select>
         </div>
       </form>
+
+      <ConfirmModal
+        text="Discard changes"
+        isOpen={isConfirmModalOpen}
+        onConfirm={() => navigate(-1)}
+        onCancel={() => setIsConfirmModalOpen(false)}
+      />
     </main>
   );
 }

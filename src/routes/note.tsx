@@ -1,9 +1,13 @@
+import { useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { MdArrowBack as MdBack, MdEdit, MdDelete } from "react-icons/md";
+import toast from "react-hot-toast";
 import useStore from "../lib/store";
 import ResourceNotFound from "../components/resource_not_found";
+import ConfirmModal from "../components/confirm_modal";
 
 function Note() {
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams() as { id: string };
 
@@ -14,13 +18,9 @@ function Note() {
     return <ResourceNotFound resource="note" />;
   }
 
-  const handleDelete = () => {
-    const shouldDelete = window.confirm(
-      "Are you sure you want to delete this note"
-    );
-    if (!shouldDelete) return;
+  const handleDeleteNote = () => {
     deleteNote(id);
-    // TODO: Add alert here
+    toast.success("Note deleted");
     navigate("/");
   };
 
@@ -35,7 +35,7 @@ function Note() {
           <MdEdit className="text-2xl" />
         </Link>
 
-        <button type="button" onClick={handleDelete}>
+        <button type="button" onClick={() => setIsConfirmModalOpen(true)}>
           <MdDelete className="text-2xl" />
         </button>
       </header>
@@ -44,6 +44,13 @@ function Note() {
         <h1 className="text-xl mb-2">{note.title}</h1>
         <p className="whitespace-pre-wrap">{note.content}</p>
       </section>
+
+      <ConfirmModal
+        text="Are you sure you want to delete this note"
+        isOpen={isConfirmModalOpen}
+        onCancel={() => setIsConfirmModalOpen(false)}
+        onConfirm={handleDeleteNote}
+      />
     </main>
   );
 }

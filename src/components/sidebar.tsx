@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import clsx from "clsx";
+import toast from "react-hot-toast";
 import { MdClose, MdAdd, MdFolder, MdExpandMore } from "react-icons/md";
 
 import { useAuth } from "../contexts/auth_context";
@@ -27,6 +28,7 @@ function SideBar({ isOpen, handleClose }: Props) {
 
   const saveCollection = (data: FormData) => {
     const collection = createCollection(data);
+    toast.success("Collection created");
     handleClose();
     navigate(`/collections/${collection.id}`);
   };
@@ -88,11 +90,7 @@ function SideBar({ isOpen, handleClose }: Props) {
       <Link to="/" className="py-3 px-6">
         Settings
       </Link>
-      <button
-        type="button"
-        className="py-3 px-6 text-left"
-        onClick={() => alert("TODO")}
-      >
+      <button type="button" className="py-3 px-6 text-left">
         Theme
       </button>
 

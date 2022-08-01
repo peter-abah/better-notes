@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 import {
   Notes,
   Note,
@@ -31,6 +32,7 @@ function App() {
         <Route path="sign_in" element={<Login />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <Toaster />
     </AuthProvider>
   );
 }

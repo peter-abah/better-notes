@@ -9,7 +9,7 @@ function Modal({ className, overlayClassName, ...props }: Props) {
     <ReactModal
       className={clsx(
         className,
-        "rounded-lg p-5 mx-8 z-50 max-w-sm bg-neutral-100"
+        "rounded-lg p-5 mx-8 z-50 w-72 bg-neutral-100"
       )}
       overlayClassName={clsx(
         overlayClassName,

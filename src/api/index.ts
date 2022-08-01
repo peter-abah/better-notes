@@ -19,22 +19,17 @@ export const customFetch = async (
   resource: string,
   options?: Parameters<typeof fetch>[1]
 ) => {
-  try {
-    const url = `${BASE_URL}${resource}`;
+  const url = `${BASE_URL}${resource}`;
 
-    const defaultOptions: any = {
-      mode: "cors",
-    };
-    defaultOptions.headers =
-      options?.headers instanceof Headers
-        ? options.headers
-        : new Headers({ ...defaultHeaders(), ...options?.headers });
-    const res = await fetch(url, { ...options, ...defaultOptions });
-    if (!res.ok) throw new APIError("Request error", res);
+  const defaultOptions: any = {
+    mode: "cors",
+  };
+  defaultOptions.headers =
+    options?.headers instanceof Headers
+      ? options.headers
+      : new Headers({ ...defaultHeaders(), ...options?.headers });
+  const res = await fetch(url, { ...options, ...defaultOptions });
+  if (!res.ok) throw new APIError("Request error", res);
 
-    return res;
-  } catch (e: any) {
-    alert(e.message);
-    throw e;
-  }
+  return res;
 };
