@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { MdAdd, MdMenu } from "react-icons/md";
+import { MdAdd, MdMenu, MdSearch } from "react-icons/md";
 import toast from "react-hot-toast";
 
 import useStore from "../lib/store";
@@ -47,6 +47,7 @@ function Collection() {
   };
 
   const toggleSideBar = () => setIsSideBarOpen((state) => !state);
+  const searchLabelText = `Search within "${collection.name}"`;
 
   return (
     <main className="p-6">
@@ -60,12 +61,21 @@ function Collection() {
           {collection.name}
         </h1>
 
-        <OptionsMenu
-          items={[
-            { node: "Edit", onClick: () => setIsCollectionFormOpen(true) },
-            { node: "Delete", onClick: () => setIsConfirmModalOpen(true) },
-          ]}
-        />
+        <div className="flex items-center">
+          <Link
+            to={`/search/?collection_id=${collection.id}&label=${searchLabelText}`}
+            className="px-2 mr-2"
+          >
+            <span className="sr-only">Search</span>
+            <MdSearch className="text-2xl" />
+          </Link>
+          <OptionsMenu
+            items={[
+              { node: "Edit", onClick: () => setIsCollectionFormOpen(true) },
+              { node: "Delete", onClick: () => setIsConfirmModalOpen(true) },
+            ]}
+          />
+        </div>
       </header>
 
       <div>

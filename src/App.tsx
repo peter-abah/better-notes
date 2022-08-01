@@ -6,6 +6,7 @@ import {
   NewNote,
   EditNote,
   Collection,
+  Search,
   Register,
   Login,
   NotFound,
@@ -20,6 +21,7 @@ function App() {
         <Route element={<PrivateRoute />}>
           <Route index element={<Notes />} />
           <Route path="collections/:id" element={<Collection />} />
+          <Route path="search" element={<Search />} />
           <Route path="notes">
             <Route index element={<Notes />} />
             <Route path=":id" element={<Note />} />

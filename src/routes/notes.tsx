@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { MdAdd, MdMenu } from "react-icons/md";
+import { MdAdd, MdMenu, MdSearch } from "react-icons/md";
 
 import useStore from "../lib/store";
 import NotePreview from "../components/note_preview";
@@ -15,12 +15,17 @@ function Notes() {
   return (
     <main className="p-6">
       <header className="flex justify-between items-center mb-6">
-        <button type="button" onClick={toggleSideBar}>
+        <button type="button" className="px-2" onClick={toggleSideBar}>
           <span className="sr-only">Menu</span>
           <MdMenu className="text-2xl" />
         </button>
 
         <h1 className="text-xl font-bold grow text-center">Notes</h1>
+
+        <Link className="px-2" to="/search">
+          <span className="sr-only">Search</span>
+          <MdSearch className="text-2xl" />
+        </Link>
       </header>
 
       <div>
