@@ -1,13 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import TextareaAutoSize from "react-textarea-autosize";
 import { useForm } from "react-hook-form";
-import { MdArrowBackIos as MdBack, MdDone } from "react-icons/md";
+import { MdClose, MdDone } from "react-icons/md";
+import useStore from "../lib/store";
 import { Note } from "../lib/types";
 
 export type FormData = Omit<Note, "id">;
 
 interface Props {
-  defaultValues?: FormData;
+  defaultValues?: Partial<FormData>;
   onSubmit: (data: FormData) => void;
 }
 function NoteForm({ defaultValues, onSubmit }: Props) {
@@ -17,6 +18,7 @@ function NoteForm({ defaultValues, onSubmit }: Props) {
     register,
     formState: { isSubmitting },
   } = useForm<FormData>({ defaultValues });
+  const collections = useStore((state) => state.collections);
 
   const goBack = () => {
     const shouldClose = window.confirm("Discard changes?");
@@ -28,8 +30,8 @@ function NoteForm({ defaultValues, onSubmit }: Props) {
     <main className="min-h-screen flex flex-col">
       <header className="flex justify-between p-4 sticky top-0 bg-white">
         <button type="button" className="mr-4" onClick={goBack}>
-          <MdBack className="text-2xl" />
-          <span className="sr-only">Back</span>
+          <MdClose className="text-2xl" />
+          <span className="sr-only">Cancel</span>
         </button>
         <button
           type="submit"
@@ -44,7 +46,7 @@ function NoteForm({ defaultValues, onSubmit }: Props) {
 
       <form
         id="note-form"
-        className="flex flex-col grow p-4"
+        className="flex flex-col grow px-4"
         onSubmit={handleSubmit(onSubmit)}
       >
         <label htmlFor="title" className="sr-only">
@@ -54,10 +56,26 @@ function NoteForm({ defaultValues, onSubmit }: Props) {
           type="text"
           placeholder="Title"
           id="title"
-          className="w-full px-1 py-2 font-bold text-lg border-black focus:outline-none"
+          className="w-full font-bold text-lg focus:outline-none"
           aria-label="Title"
           {...register("title", { required: true })}
         />
+
+        <div className="flex gap-2 items-center py-2">
+          <label htmlFor="collection">Collection: </label>
+          <select
+            id="collection"
+            className="px-2 py-1 bg-transparent"
+            {...register("collection_id")}
+          >
+            <option>None</option>
+            {collections.map((collection) => (
+              <option key={collection.id} value={collection.id}>
+                {collection.name}
+              </option>
+            ))}
+          </select>
+        </div>
 
         <label htmlFor="content" className="sr-only">
           Content
@@ -65,8 +83,9 @@ function NoteForm({ defaultValues, onSubmit }: Props) {
         <TextareaAutoSize
           id="content"
           aria-label="Body"
-          placeholder="Body..."
-          className="w-full grow px-1 py-2 border-black focus:outline-none"
+          placeholder="Body"
+          className="w-full focus:outline-none"
+          minRows={20}
           {...register("content", { required: true })}
         />
       </form>

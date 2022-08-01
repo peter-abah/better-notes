@@ -38,8 +38,9 @@ function Collection() {
         ))}
       </div>
 
+      {/* Sends follection id to note form so it will ve the default selection */}
       <Link
-        to="/notes/new"
+        to={`/notes/new?collection_id=${collection.id}`}
         className="fixed bottom-4 right-4 w-16 h-16 grid place-items-center rounded-full bg-black text-white"
       >
         <MdAdd className="text-2xl" />
