@@ -68,10 +68,13 @@ const useStore = create<Store>()(
       },
       deleteCollection: (id) => {
         set((state) => {
-          const filtered = state.collections.filter(
+          const filteredCollections = state.collections.filter(
             (collection) => collection.id !== id
           );
-          return { collections: filtered };
+          const filteredNotes = state.notes.filter(
+            (note) => note.collection_id !== id
+          );
+          return { collections: filteredCollections, notes: filteredNotes };
         });
       },
 

@@ -13,11 +13,17 @@ interface Props {
 function CollectionFormModal({
   title,
   defaultValues,
-  onSubmit,
+  onSubmit: onSubmitParent,
   isOpen,
   onClose,
 }: Props) {
   const { register, handleSubmit } = useForm<FormData>({ defaultValues });
+
+  const onSubmit = (data: FormData) => {
+    onSubmitParent(data);
+    onClose();
+  };
+
   return (
     <Modal isOpen={isOpen} onRequestClose={onClose}>
       <h2 className="text-lg mb-6">{title}</h2>
