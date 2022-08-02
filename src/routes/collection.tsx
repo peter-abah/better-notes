@@ -4,6 +4,7 @@ import { MdAdd, MdMenu, MdSearch } from "react-icons/md";
 import toast from "react-hot-toast";
 
 import useStore from "../lib/store";
+import useDocumentTitle from "../hooks/use_document_title";
 import NotePreview from "../components/note_preview";
 import SideBar from "../components/sidebar";
 import ResourceNotFound from "../components/resource_not_found";
@@ -32,6 +33,8 @@ function Collection() {
   );
   const updateCollection = useStore((state) => state.updateCollection);
   const deleteCollection = useStore((state) => state.deleteCollection);
+
+  useDocumentTitle(`BetterNotes | ${collection?.name || "Not found"}`);
 
   if (!collection) return <ResourceNotFound resource="collection" />;
 

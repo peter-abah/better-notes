@@ -2,12 +2,14 @@ import { useState, ChangeEvent } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { MdArrowBack } from "react-icons/md";
 import useStore from "../lib/store";
+import useDocumentTitle from "../hooks/use_document_title";
 import NotePreview from "../components/note_preview";
 
 function Search() {
   const [query, setQuery] = useState("");
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  useDocumentTitle("BetterNotes | Search");
 
   const notes = useStore((state) => state.notes);
   const filteredNotes = notes.filter((note) => {

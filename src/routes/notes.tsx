@@ -3,12 +3,14 @@ import { Link } from "react-router-dom";
 import { MdAdd, MdMenu, MdSearch } from "react-icons/md";
 
 import useStore from "../lib/store";
+import useDocumentTitle from "../hooks/use_document_title";
 import NotePreview from "../components/note_preview";
 import SideBar from "../components/sidebar";
 
 function Notes() {
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
   const notes = useStore((state) => state.notes);
+  useDocumentTitle("BetterNotes | Notes");
 
   const toggleSideBar = () => setIsSideBarOpen((state) => !state);
 

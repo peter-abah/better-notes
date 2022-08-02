@@ -3,12 +3,14 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { MdArrowBack as MdBack, MdEdit, MdDelete } from "react-icons/md";
 import toast from "react-hot-toast";
 import useStore from "../lib/store";
+import useDocumentTitle from "../hooks/use_document_title";
 import ResourceNotFound from "../components/resource_not_found";
 import ConfirmModal from "../components/confirm_modal";
 
 function Note() {
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const navigate = useNavigate();
+  useDocumentTitle("BetterNotes | Note");
   const { id } = useParams() as { id: string };
 
   const deleteNote = useStore((state) => state.deleteNote);

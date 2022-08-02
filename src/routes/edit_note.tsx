@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import useStore from "../lib/store";
+import useDocumentTitle from "../hooks/use_document_title";
 import NoteForm, { FormData } from "../components/note_form";
 import ResourceNotFound from "../components/resource_not_found";
 
@@ -12,6 +13,7 @@ function EditNote() {
   const notes = useStore((state) => state.notes);
   const note = notes.find((n) => n.id === id);
 
+  useDocumentTitle("BetterNotes | Edit Note");
   if (note == null) {
     return <ResourceNotFound resource="note" />;
   }

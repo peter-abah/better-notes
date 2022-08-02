@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
+import useDocumentTitle from "../hooks/use_document_title";
 
 function NotFound() {
+  useDocumentTitle("BetterNotes | 404");
   return (
     <main className="h-screen flex flex-col justify-center items-center">
       <header className="flex mb-12">

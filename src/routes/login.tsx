@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuth } from "../contexts/auth_context";
+import useDocumentTitle from "../hooks/use_document_title";
 import { getErrorMessages } from "../lib/errors";
 
 const formSchema = z.object({
@@ -18,6 +19,7 @@ type FormData = z.infer<typeof formSchema>;
 function Login() {
   const { login } = useAuth();
   const navigate = useNavigate();
+  useDocumentTitle("BetterNotes | Login");
 
   const { register, handleSubmit, formState, setError } = useForm<FormData>({
     resolver: zodResolver(formSchema),

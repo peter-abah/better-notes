@@ -5,6 +5,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useAuth } from "../contexts/auth_context";
+import useDocumentTitle from "../hooks/use_document_title";
 import { getErrorMessages } from "../lib/errors";
 
 const formSchema = z
@@ -25,6 +26,7 @@ type FormData = z.infer<typeof formSchema>;
 function Register() {
   const { register: registerUser } = useAuth();
   const navigate = useNavigate();
+  useDocumentTitle("BetterNotes | Sign up");
 
   const { register, handleSubmit, formState, setError } = useForm<FormData>({
     resolver: zodResolver(formSchema),

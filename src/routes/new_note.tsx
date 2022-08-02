@@ -1,10 +1,12 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import useStore from "../lib/store";
+import useDocumentTitle from "../hooks/use_document_title";
 import NoteForm, { FormData } from "../components/note_form";
 
 function NewNote() {
   const navigate = useNavigate();
+  useDocumentTitle("BetterNotes | New Note");
   const [searchParams] = useSearchParams();
   const createNote = useStore((state) => state.createNote);
 
