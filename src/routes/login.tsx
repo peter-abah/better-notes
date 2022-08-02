@@ -42,18 +42,15 @@ function Login() {
   };
 
   return (
-    <main className="bg-neutral-100 min-h-screen">
+    <main className="bg-gray-1 min-h-screen">
       <header className="p-8 flex justify-between items-center">
         <h1 className="text-2xl font-bold">BetterNotes</h1>
-        <Link
-          to="/sign_up"
-          className="border rounded-md border-black px-3 py-2"
-        >
+        <Link to="/sign_up" className="border rounded-md border-text px-3 py-2">
           Sign up
         </Link>
       </header>
 
-      <section className="max-w-md w-11/12 p-6 mt-4 mx-auto bg-white rounded-xl">
+      <section className="max-w-md w-11/12 p-6 mt-4 mx-auto bg-bg rounded-xl">
         <h1 className="mb-8 text-center text-3xl font-bold">Login</h1>
 
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -98,7 +95,7 @@ function Login() {
 
           <button
             type="submit"
-            className="form-submit-btn disabled:!bg-neutral-700"
+            className="form-submit-btn disabled:!bg-primary/90"
             disabled={isSubmitting}
           >
             Sign in

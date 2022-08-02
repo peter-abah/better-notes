@@ -26,7 +26,7 @@ function Note() {
 
   return (
     <main>
-      <header className="px-6 py-4 sticky top-0 flex bg-white">
+      <header className="px-6 py-4 sticky top-0 flex bg-bg">
         <button className="mr-auto" type="button" onClick={() => navigate(-1)}>
           <MdBack className="text-2xl" />
         </button>

@@ -47,7 +47,7 @@ function Search() {
         </label>
         <input
           id="query"
-          className="w-full rounded-2xl bg-neutral-100 px-4 py-2 placeholder:text-neutral-600 focus:outline-none"
+          className="w-full rounded-2xl bg-gray-1 px-4 py-2 placeholder:text-text/90 focus:outline-none"
           type="search"
           placeholder={labelText}
           arial-label={labelText}

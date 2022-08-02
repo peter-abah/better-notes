@@ -1,23 +1,26 @@
 import create from "zustand";
 import { persist } from "zustand/middleware";
 import { nanoid } from "nanoid";
-import { Note, Collection } from "./types";
+import { Note, Collection, ThemeOptions } from "./types";
 
 interface Store {
   notes: Note[];
+  collections: Collection[];
+  theme: ThemeOptions;
   createNote: (noteData: Omit<Note, "id">) => Note;
   deleteNote: (id: Note["id"]) => void;
   updateNote: (note: Note) => Note;
-  collections: Collection[];
   createCollection: (collectionData: Pick<Collection, "name">) => Collection;
   deleteCollection: (id: Collection["id"]) => void;
   updateCollection: (collection: Collection) => Collection;
+  updateTheme: (theme: ThemeOptions) => void;
   resetStore: () => void;
 }
 
 const initialState = {
   notes: [],
   collections: [],
+  theme: ThemeOptions.LIGHT,
 };
 
 const useStore = create<Store>()(
@@ -78,6 +81,7 @@ const useStore = create<Store>()(
         });
       },
 
+      updateTheme: (theme) => set({ theme }),
       resetStore: () => set(initialState),
     }),
     { name: "betternotes-storage" }

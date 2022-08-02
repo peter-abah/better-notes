@@ -8,7 +8,7 @@ function NotFound() {
         <h2 className="pl-4">This page could not be found</h2>
       </header>
 
-      <Link to="/" className="px-8 py-3 bg-black text-white">
+      <Link to="/" className="px-8 py-3 bg-primary text-on-primary">
         Back to Home
       </Link>
     </main>

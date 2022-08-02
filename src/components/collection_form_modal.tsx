@@ -40,14 +40,14 @@ function CollectionFormModal({
         <div className="flex justify-between mt-6">
           <button
             type="button"
-            className="px-4 py-2 bg-red-700 text-white rounded-lg"
+            className="px-4 py-2 bg-red text-white rounded-lg"
             onClick={onClose}
           >
             Cancel
           </button>
           <button
             type="submit"
-            className="px-4 py-2 bg-black text-white rounded-lg"
+            className="px-4 py-2 bg-primary text-on-primary rounded-lg"
           >
             Save
           </button>

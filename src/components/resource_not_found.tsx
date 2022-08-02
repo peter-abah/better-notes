@@ -13,7 +13,10 @@ function ResourceNotFound({ resource, resourceLink = `/${resource}s` }: Props) {
         <p className="mb-10 px-4">
           Whoops, looks like this {resource} does not exist
         </p>
-        <Link to={resourceLink} className="px-6 py-2 bg-black text-white">
+        <Link
+          to={resourceLink}
+          className="pxr6 py-2 bg-primary text-on-primary"
+        >
           Go back
         </Link>
       </div>

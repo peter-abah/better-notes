@@ -16,3 +16,8 @@ export interface Collection {
   created_at: string;
   updated_at: string;
 }
+
+export enum ThemeOptions {
+  LIGHT = "light",
+  DARK = "dark",
+}

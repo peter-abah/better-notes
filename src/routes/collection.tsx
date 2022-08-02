@@ -50,8 +50,8 @@ function Collection() {
   const searchLabelText = `Search within "${collection.name}"`;
 
   return (
-    <main className="p-6">
-      <header className="flex justify-between items-center mb-6">
+    <main>
+      <header className="sticky top-0 flex justify-between items-center p-6 bg-bg">
         <button type="button" onClick={toggleSideBar}>
           <span className="sr-only">Menu</span>
           <MdMenu className="text-2xl" />
@@ -78,18 +78,20 @@ function Collection() {
         </div>
       </header>
 
-      <div>
+      <ul className="px-6 pb-6">
         {notes.map((note) => (
-          <NotePreview key={note.id} note={note} />
+          <li key={note.id}>
+            <NotePreview note={note} />
+          </li>
         ))}
-      </div>
+      </ul>
 
       {/* Sends follection id to note form so it will ve the default selection */}
       <Link
         to={`/notes/new?collection_id=${collection.id}`}
-        className="fixed bottom-4 right-4 w-16 h-16 grid place-items-center rounded-full bg-black text-white"
+        className="fixed bottom-4 right-6 w-16 h-16 grid place-items-center rounded-full bg-primary text-on-primary"
       >
-        <MdAdd className="text-2xl" />
+        <MdAdd className="text-3xl" />
       </Link>
 
       {isSideBarOpen && (

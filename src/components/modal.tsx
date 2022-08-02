@@ -7,10 +7,7 @@ type Props = React.ComponentProps<typeof ReactModal>;
 function Modal({ className, overlayClassName, ...props }: Props) {
   return (
     <ReactModal
-      className={clsx(
-        className,
-        "rounded-lg p-5 mx-8 z-50 w-72 bg-neutral-100"
-      )}
+      className={clsx(className, "rounded-lg p-5 mx-8 z-50 w-72 bg-gray-1")}
       overlayClassName={clsx(
         overlayClassName,
         "fixed top-0 left-0 right-0 bottom-0 z-50 grid place-items-center bg-black/50"

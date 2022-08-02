@@ -25,7 +25,7 @@ function NoteForm({ defaultValues, onSubmit }: Props) {
 
   return (
     <main className="min-h-screen flex flex-col">
-      <header className="flex justify-between px-6 py-4 sticky top-0 bg-white">
+      <header className="flex justify-between px-6 py-4 sticky top-0 bg-bg">
         <button
           type="button"
           className="mr-4"
@@ -38,7 +38,7 @@ function NoteForm({ defaultValues, onSubmit }: Props) {
           type="submit"
           disabled={isSubmitting}
           form="note-form"
-          className="ml-4 disabled:text-neutral-600"
+          className="ml-4 disabled:text-text/80"
         >
           <MdDone className="text-2xl" />
           <span className="sr-only">Save</span>
@@ -57,7 +57,7 @@ function NoteForm({ defaultValues, onSubmit }: Props) {
           type="text"
           placeholder="Title"
           id="title"
-          className="w-full text-xl mb-2 focus:outline-none placeholder:text-neutral-600"
+          className="w-full text-xl mb-2 bg-transparent focus:outline-none placeholder:text-text/80"
           aria-label="Title"
           {...register("title", { required: true })}
         />
@@ -69,7 +69,7 @@ function NoteForm({ defaultValues, onSubmit }: Props) {
           id="content"
           aria-label="Body"
           placeholder="Body"
-          className="w-full focus:outline-none placeholder:text-neutral-600"
+          className="w-full bg-transparent focus:outline-none placeholder:text-text/80"
           minRows={20}
           {...register("content", { required: true })}
         />
