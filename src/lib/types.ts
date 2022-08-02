@@ -3,16 +3,18 @@ export interface User {
   token: string;
 }
 
+export interface Collection {
+  id: string;
+  name: string;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface Note {
   id: string;
   title: string;
   content: string;
-  collection_id?: string;
-}
-
-export interface Collection {
-  id: string;
-  name: string;
+  collection_id?: Collection["id"];
   created_at: string;
   updated_at: string;
 }

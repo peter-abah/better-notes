@@ -24,7 +24,7 @@ function NoteForm({ defaultValues, onSubmit }: Props) {
   const collections = useStore((state) => state.collections);
 
   return (
-    <main className="min-h-screen flex flex-col">
+    <main className="min-h-full flex flex-col">
       <header className="flex justify-between px-6 py-4 sticky top-0 bg-bg">
         <button
           type="button"
@@ -74,7 +74,7 @@ function NoteForm({ defaultValues, onSubmit }: Props) {
           {...register("content", { required: true })}
         />
 
-        <div className="flex gap-2 items-center mt-auto py-2">
+        <div className="flex gap-2 items-center mt-auto py-4 bg-bg sticky bottom-0">
           <label htmlFor="collection">Collection: </label>
           <select
             id="collection"

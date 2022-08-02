@@ -28,6 +28,13 @@
   transition: transform 0.25s ease-in;
 }
 
+html,
+body,
+#root {
+  height: 100%;
+  min-height: 100%;
+}
+
 body {
   @apply bg-bg text-text;
 }
@@ -61,6 +68,7 @@ button {
     padding: 0.75rem 2rem;
     border-radius: 0.5rem;
     font-weight: bold;
+    text-align: center;
     @apply bg-primary text-on-primary;
   }
 }

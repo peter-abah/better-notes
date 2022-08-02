@@ -7,7 +7,9 @@ interface Store {
   notes: Note[];
   collections: Collection[];
   theme: ThemeOptions;
-  createNote: (noteData: Omit<Note, "id">) => Note;
+  createNote: (
+    noteData: Omit<Note, "id" | "created_at" | "updated_at">
+  ) => Note;
   deleteNote: (id: Note["id"]) => void;
   updateNote: (note: Note) => Note;
   createCollection: (collectionData: Pick<Collection, "name">) => Collection;
@@ -27,12 +29,22 @@ const useStore = create<Store>()(
   persist(
     (set) => ({
       ...initialState,
+
+      // NOTES
       createNote: (noteData) => {
-        const note = { ...noteData, id: nanoid() };
+        const isoDate = new Date().toISOString();
+        const note = {
+          ...noteData,
+          id: nanoid(),
+          created_at: isoDate,
+          updated_at: isoDate,
+        };
         set((state) => ({ notes: [...state.notes, note] }));
         return note;
       },
       updateNote: (note) => {
+        // eslint-disable-next-line no-param-reassign
+        note = { ...note, updated_at: new Date().toISOString() };
         set((state) => {
           const filtered = state.notes.filter(({ id }) => id !== note.id);
           return { notes: [...filtered, note] };
@@ -81,6 +93,7 @@ const useStore = create<Store>()(
         });
       },
 
+      // MISC
       updateTheme: (theme) => set({ theme }),
       resetStore: () => set(initialState),
     }),

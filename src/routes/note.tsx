@@ -2,10 +2,25 @@ import { useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { MdArrowBack as MdBack, MdEdit, MdDelete } from "react-icons/md";
 import toast from "react-hot-toast";
+import dayjs from "dayjs";
 import useStore from "../lib/store";
 import useDocumentTitle from "../hooks/use_document_title";
 import ResourceNotFound from "../components/resource_not_found";
 import ConfirmModal from "../components/confirm_modal";
+
+function formatDate(isoDate: string) {
+  const date = dayjs(isoDate);
+  const isToday = date.isSame(dayjs(), "day");
+  if (isToday) return date.format("h:mm A");
+
+  const isYesterday = date.isSame(dayjs().subtract(1, "day"), "day");
+  if (isYesterday) return date.format("[Yesterday] h:mm A");
+
+  const isThisYear = date.isSame(dayjs(), "year");
+  if (isThisYear) return date.format("MMM d");
+
+  return date.format("MMM d, YYYY");
+}
 
 function Note() {
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
@@ -27,7 +42,7 @@ function Note() {
   };
 
   return (
-    <main>
+    <main className="flex flex-col min-h-full">
       <header className="px-6 py-4 sticky top-0 flex bg-bg">
         <button className="mr-auto" type="button" onClick={() => navigate(-1)}>
           <MdBack className="text-2xl" />
@@ -42,9 +57,16 @@ function Note() {
         </button>
       </header>
 
-      <section className="px-6 pb-6">
+      <section className="px-6 mb-4">
         <h1 className="text-xl mb-2">{note.title}</h1>
         <p className="whitespace-pre-wrap">{note.content}</p>
+      </section>
+
+      <section className="px-6 mt-auto mb-6">
+        <p>
+          Edited{" "}
+          <time dateTime={note.updated_at}>{formatDate(note.updated_at)}</time>
+        </p>
       </section>
 
       <ConfirmModal
