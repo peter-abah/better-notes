@@ -30,10 +30,13 @@ function Note() {
 
   const deleteNote = useStore((state) => state.deleteNote);
   const note = useStore((state) => state.notes.find((n) => n.id === id));
+  const tags = useStore((state) => state.tags);
 
   if (note == null) {
     return <ResourceNotFound resource="note" />;
   }
+
+  const noteTags = tags.filter((t) => note.tags.includes(t.id));
 
   const handleDeleteNote = () => {
     deleteNote(id);
@@ -61,6 +64,17 @@ function Note() {
         <h1 className="text-xl mb-2">{note.title}</h1>
         <p className="whitespace-pre-wrap">{note.content}</p>
       </section>
+
+      <ul className="flex flex-wrap gap-2 px-6 mb-4 mt-8">
+        {noteTags.map((tag) => (
+          <li
+            key={tag.id}
+            className="px-4 py-1 text-sm font-medium rounded-lg bg-primary text-on-primary"
+          >
+            {tag.name}
+          </li>
+        ))}
+      </ul>
 
       <section className="px-6 mt-auto mb-6">
         <p>

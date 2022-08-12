@@ -73,7 +73,7 @@ function Collection() {
             <MdSearch className="text-2xl" />
           </Link>
           <OptionsMenu
-            items={[
+            options={[
               { node: "Edit", onClick: () => setIsCollectionFormOpen(true) },
               { node: "Delete", onClick: () => setIsConfirmModalOpen(true) },
             ]}

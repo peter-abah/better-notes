@@ -4,13 +4,13 @@ import { MdMoreVert } from "react-icons/md";
 
 interface Props {
   menuButton?: ReactElement;
-  items: {
+  options: {
     node: ReactNode;
     onClick: () => void;
   }[];
 }
 
-function OptionsMenu({ items, menuButton }: Props) {
+function OptionsMenu({ options, menuButton }: Props) {
   // eslint-disable-next-line no-param-reassign
   menuButton ||= (
     <button type="button">
@@ -22,7 +22,7 @@ function OptionsMenu({ items, menuButton }: Props) {
       menuButton={menuButton}
       menuClassName="py-2 bg-gray-2 min-w-[6rem] mr-4 shadow-md rounded-md"
     >
-      {items.map(({ node, onClick }) => (
+      {options.map(({ node, onClick }) => (
         <MenuItem onClick={onClick} className="px-4 py-1 hover:bg-gray-1">
           {node}
         </MenuItem>
