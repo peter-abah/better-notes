@@ -7,6 +7,7 @@ import {
   NewNote,
   EditNote,
   Collection,
+  Tag,
   Search,
   Register,
   Login,
@@ -35,6 +36,7 @@ function App() {
         <Route element={<PrivateRoute />}>
           <Route index element={<Notes />} />
           <Route path="collections/:id" element={<Collection />} />
+          <Route path="tags/:id" element={<Tag />} />
           <Route path="search" element={<Search />} />
           <Route path="notes">
             <Route index element={<Notes />} />

@@ -67,11 +67,13 @@ function Note() {
 
       <ul className="flex flex-wrap gap-2 px-6 mb-4 mt-8">
         {noteTags.map((tag) => (
-          <li
-            key={tag.id}
-            className="px-4 py-1 text-sm font-medium rounded-lg bg-primary text-on-primary"
-          >
-            {tag.name}
+          <li key={tag.id}>
+            <Link
+              to={`/tags/${tag.id}`}
+              className="px-4 py-1 text-sm font-medium rounded-lg bg-primary text-on-primary"
+            >
+              {tag.name}
+            </Link>
           </li>
         ))}
       </ul>

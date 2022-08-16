@@ -51,16 +51,16 @@ function NoteForm({ defaultValues, onSubmit }: Props) {
         </button>
 
         <div className="flex items-center">
-          <OptionsMenu options={[{ node: "Tags", onClick: openTagsModal }]} />
           <button
             type="submit"
             disabled={isSubmitting}
             form="note-form"
-            className="ml-4 disabled:text-text/80"
+            className="mr-4 disabled:text-text/80"
           >
             <MdDone className="text-2xl" />
             <span className="sr-only">Save</span>
           </button>
+          <OptionsMenu options={[{ node: "Tags", onClick: openTagsModal }]} />
         </div>
       </header>
 
@@ -109,7 +109,7 @@ function NoteForm({ defaultValues, onSubmit }: Props) {
           <label htmlFor="collection">Collection: </label>
           <select
             id="collection"
-            className="px-2 py-1 bg-transparent"
+            className="px-2 py-1 w-40 bg-transparent"
             {...register("collection_id")}
           >
             <option>None</option>

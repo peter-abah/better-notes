@@ -1,8 +1,11 @@
+// TODO: The naming of this component is wrong and has code smell
+// I don't know how to fix it now since the modals for tag and collection are
+// the same, so I am putting a name for now then I will come to fix it later
+
 import { useForm } from "react-hook-form";
 import Modal from "./modal";
-import { Collection } from "../lib/types";
 
-export type FormData = Pick<Collection, "name">;
+export type FormData = { name: string };
 interface Props {
   title: string;
   defaultValues?: FormData;
@@ -10,14 +13,16 @@ interface Props {
   isOpen: boolean;
   onClose: () => void;
 }
-function CollectionFormModal({
+function NameFormModal({
   title,
   defaultValues,
   onSubmit: onSubmitParent,
   isOpen,
   onClose,
 }: Props) {
-  const { register, handleSubmit } = useForm<FormData>({ defaultValues });
+  const { register, handleSubmit } = useForm<FormData>({
+    defaultValues,
+  });
 
   const onSubmit = (data: FormData) => {
     onSubmitParent(data);
@@ -29,7 +34,7 @@ function CollectionFormModal({
       <h2 className="text-lg mb-6">{title}</h2>
       <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="name" className="text-sm mb-2">
-          Name:
+          Name
         </label>
         <input
           type="text"
@@ -57,4 +62,4 @@ function CollectionFormModal({
   );
 }
 
-export default CollectionFormModal;
+export default NameFormModal;

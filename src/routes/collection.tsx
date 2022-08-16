@@ -10,9 +10,7 @@ import SideBar from "../components/sidebar";
 import ResourceNotFound from "../components/resource_not_found";
 import OptionsMenu from "../components/options_menu";
 import ConfirmModal from "../components/confirm_modal";
-import CollectionFormModal, {
-  FormData,
-} from "../components/collection_form_modal";
+import CollectionFormModal, { FormData } from "../components/name_form_modal";
 
 const confirmDeleteMessage =
   "Are you sure you want to delete this collection? All notes in the collection will also be deleted.";
@@ -55,12 +53,12 @@ function Collection() {
   return (
     <main>
       <header className="sticky top-0 flex justify-between items-center p-6 bg-bg">
-        <button type="button" onClick={toggleSideBar}>
+        <button type="button" className="mr-4" onClick={toggleSideBar}>
           <span className="sr-only">Menu</span>
           <MdMenu className="text-2xl" />
         </button>
 
-        <h1 className="text-xl font-bold grow text-center">
+        <h1 className="text-xl font-bold w-full truncate text-center">
           {collection.name}
         </h1>
 
