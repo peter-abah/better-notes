@@ -1,6 +1,5 @@
 import {
   useEffect,
-  useCallback,
   useMemo,
   useContext,
   createContext,
@@ -15,7 +14,7 @@ import {
   LoginData,
   RegisterData,
 } from "../api/auth";
-import useStore from "../lib/store";
+import { resetApp, loadApp } from "../lib/store";
 import { User } from "../lib/types";
 
 interface AuthContextInterface {
@@ -33,14 +32,16 @@ interface Props {
 }
 function AuthProvider({ children }: Props) {
   const [user, setUser] = useLocalStorage<User | null>("user", null);
-  const resetStore = useStore((store) => store.resetStore);
 
-  const logout = useCallback(() => {
-    resetStore();
+  const logout = () => {
     logoutUser();
     setUser(null);
-  }, [resetStore]);
 
+    // Clear stored user data
+    resetApp();
+  };
+
+  // Logout when token expires
   useEffect(() => {
     if (user && isExpired(user.token)) logout();
   }, [user?.token]);
@@ -48,11 +49,13 @@ function AuthProvider({ children }: Props) {
   const login = async (data: LoginData) => {
     const res = await loginUser(data);
     setUser(res);
+    loadApp();
   };
 
   const register = async (data: RegisterData) => {
     const res = await registerUser(data);
     setUser(res);
+    loadApp();
   };
 
   const providerValue = useMemo(

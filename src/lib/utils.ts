@@ -18,5 +18,5 @@ export const humanizeString = (str: string) => {
 };
 
 // Check response has json content
-export const isJSON = (res: Response) =>
+export const isJSONResponse = (res: Response) =>
   res.headers.get("Content-Type")?.includes("application/json") || false;

@@ -18,7 +18,9 @@ interface Props {
 function NoteForm({ defaultValues, onSubmit }: Props) {
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [isTagsModalOpen, setIsTagsModalOpen] = useState(false);
-  const [tagIds, setTagIds] = useState<Tag["id"][]>(defaultValues?.tags || []);
+  const [tagIds, setTagIds] = useState<Tag["id"][]>(
+    defaultValues?.tag_ids || []
+  );
 
   const tags = useStore((state) => state.tags);
   const noteTags = tags.filter((tag) => tagIds.includes(tag.id));
@@ -36,7 +38,7 @@ function NoteForm({ defaultValues, onSubmit }: Props) {
   };
 
   const beforeSubmit = (formData: FormData) => {
-    onSubmit({ ...formData, tags: tagIds });
+    onSubmit({ ...formData, tag_ids: tagIds });
   };
   return (
     <main className="min-h-full flex flex-col">

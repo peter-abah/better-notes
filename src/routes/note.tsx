@@ -36,7 +36,7 @@ function Note() {
     return <ResourceNotFound resource="note" />;
   }
 
-  const noteTags = tags.filter((t) => note.tags.includes(t.id));
+  const noteTags = tags.filter((t) => note.tag_ids.includes(t.id));
 
   const handleDeleteNote = () => {
     deleteNote(id);

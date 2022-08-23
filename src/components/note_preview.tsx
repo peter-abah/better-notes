@@ -9,7 +9,7 @@ interface Props {
 }
 function NotePreview({ note }: Props) {
   const tags = useStore((store) => store.tags);
-  const noteTags = tags.filter((tag) => note.tags.includes(tag.id));
+  const noteTags = tags.filter((tag) => note.tag_ids.includes(tag.id));
 
   const isMoreThanLimit = note.content.length > CHAR_LIMIT;
   const content = isMoreThanLimit

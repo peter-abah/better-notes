@@ -25,7 +25,7 @@ function Tag() {
 
   const tag = useStore((state) => state.tags.find((t) => t.id === id));
   const notes = useStore((state) =>
-    state.notes.filter((n) => n.tags.includes(id))
+    state.notes.filter((n) => n.tag_ids.includes(id))
   );
   const updateTag = useStore((state) => state.updateTag);
   const deleteTag = useStore((state) => state.deleteTag);

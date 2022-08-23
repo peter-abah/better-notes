@@ -1,6 +1,6 @@
 // Handle requests errors
 
-import { humanizeString, isJSON } from "./utils";
+import { humanizeString, isJSONResponse } from "./utils";
 
 const unknownErrorMessage = (msg?: string) => {
   // eslint-disable-next-line no-param-reassign
@@ -28,13 +28,12 @@ const getAPIErrorMessages = async (error: APIError) => {
   const res = error.response;
 
   const isServerError = res.status >= 500 && res.status <= 599;
-
   if (isServerError) {
     const message = "Server is unavailable. Please try again later.";
     return [unknownErrorMessage(message)];
   }
 
-  if (!isJSON(res)) {
+  if (!isJSONResponse(res)) {
     const message = await res.text();
     return [unknownErrorMessage(message)];
   }

@@ -22,7 +22,7 @@ export interface Note {
   title: string;
   content: string;
   collection_id?: Collection["id"];
-  tags: Tag["id"][];
+  tag_ids: Tag["id"][];
   created_at: string;
   updated_at: string;
 }

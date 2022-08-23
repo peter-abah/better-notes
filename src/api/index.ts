@@ -1,4 +1,5 @@
 import { APIError } from "../lib/errors";
+import { isJSONResponse } from "../lib/utils";
 
 export const BASE_URL = "http://localhost:3001/api/v1";
 
@@ -20,7 +21,6 @@ export const customFetch = async (
   options?: Parameters<typeof fetch>[1]
 ) => {
   const url = `${BASE_URL}${resource}`;
-
   const defaultOptions: any = {
     mode: "cors",
   };
@@ -28,8 +28,14 @@ export const customFetch = async (
     options?.headers instanceof Headers
       ? options.headers
       : new Headers({ ...defaultHeaders(), ...options?.headers });
-  const res = await fetch(url, { ...options, ...defaultOptions });
-  if (!res.ok) throw new APIError("Request error", res);
 
-  return res;
+  const res = await fetch(url, { ...options, ...defaultOptions });
+  if (!res.ok) {
+    throw new APIError("Request error", res);
+  }
+
+  if (isJSONResponse(res)) {
+    return res.json();
+  }
+  return res.text();
 };
