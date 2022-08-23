@@ -49,7 +49,7 @@ function Tag() {
 
   return (
     <main>
-      <header className="sticky top-0 flex justify-between items-center p-6 bg-bg">
+      <header className="sticky top-0 flex justify-between items-center p-6 md:px-12 bg-bg">
         <button type="button" className="mr-4" onClick={toggleSideBar}>
           <span className="sr-only">Menu</span>
           <MdMenu className="text-2xl" />
@@ -73,7 +73,7 @@ function Tag() {
         </div>
       </header>
 
-      <ul className="px-6 pb-6">
+      <ul className="px-6 md:px-12 pb-6">
         {notes.map((note) => (
           <li key={note.id}>
             <NotePreview note={note} />

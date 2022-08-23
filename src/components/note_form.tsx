@@ -42,7 +42,7 @@ function NoteForm({ defaultValues, onSubmit }: Props) {
   };
   return (
     <main className="min-h-full flex flex-col">
-      <header className="flex justify-between px-6 py-4 sticky top-0 bg-bg">
+      <header className="flex justify-between px-6 md:px-12 py-4 sticky top-0 bg-bg">
         <button
           type="button"
           className="mr-4"
@@ -68,7 +68,7 @@ function NoteForm({ defaultValues, onSubmit }: Props) {
 
       <form
         id="note-form"
-        className="flex flex-col grow px-6 pb-6"
+        className="flex flex-col grow px-6 md:px-12 pb-6"
         onSubmit={handleSubmit(beforeSubmit)}
       >
         <label htmlFor="title" className="sr-only">

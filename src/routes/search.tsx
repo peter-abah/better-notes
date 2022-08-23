@@ -35,7 +35,8 @@ function Search() {
   const labelText = searchParams.get("label") || "Search your notes";
   return (
     <main>
-      <section className="flex py-6 pl-4 pr-6">
+      <header className="flex py-6 pl-4 md:pl-10 pr-6 md:pr-6">
+        <h1 className="sr-only">{labelText}</h1>
         <button
           type="button"
           onClick={() => navigate(-1)}
@@ -56,9 +57,9 @@ function Search() {
           value={query}
           onChange={handleChange}
         />
-      </section>
+      </header>
 
-      <ul className="px-6">
+      <ul className="px-6 md:px-12">
         {filteredNotes.map((note) => (
           <li>
             <NotePreview key={note.id} note={note} />

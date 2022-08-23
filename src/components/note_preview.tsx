@@ -18,7 +18,7 @@ function NotePreview({ note }: Props) {
 
   return (
     <Link to={`/notes/${note.id}`}>
-      <div className="p-4 my-4 bg-gray-1 rounded-lg">
+      <div className="p-4 my-4 max-w-[40rem] mx-auto bg-gray-1 rounded-lg">
         <h2 className="font-bold mb-2">{note.title}</h2>
         <p className="whitespace-pre-wrap">
           {content} {isMoreThanLimit && <span>...</span>}

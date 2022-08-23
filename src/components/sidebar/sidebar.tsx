@@ -34,6 +34,10 @@ function SideBar({ isOpen, handleClose }: Props) {
       <Link to="/notes" className="px-6 py-3">
         All Notes
       </Link>
+
+      <CollectionsSection closeSidebar={handleClose} />
+      <TagsSection closeSidebar={handleClose} />
+
       <Link to="/" className="py-3 px-6">
         Settings
       </Link>
@@ -45,9 +49,6 @@ function SideBar({ isOpen, handleClose }: Props) {
         <span>Theme</span>
         <span className="text-sm">{humanizeString(theme)}</span>
       </button>
-
-      <CollectionsSection closeSidebar={handleClose} />
-      <TagsSection closeSidebar={handleClose} />
 
       <button type="button" className="py-3 px-6 text-left" onClick={logout}>
         Logout
