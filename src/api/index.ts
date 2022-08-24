@@ -1,7 +1,11 @@
 import { APIError } from "../lib/errors";
 import { isJSONResponse } from "../lib/utils";
 
-export const BASE_URL = "http://localhost:3001/api/v1";
+export const BASE_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://betternotes-api.herokuapp.com/api/v1"
+    : "https://betternotes-api.herokuapp.com/api/v1";
+// : "http://localhost:3001/api/v1";
 
 export const defaultHeaders = () => {
   const userData = window.localStorage.getItem("user");
