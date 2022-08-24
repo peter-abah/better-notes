@@ -62,7 +62,7 @@ function Note() {
 
       <section className="px-6 md:px-12 mb-4">
         <h1 className="text-xl mb-2">{note.title}</h1>
-        <p className="whitespace-pre-wrap">{note.content}</p>
+        <p className="whitespace-pre-wrap break-words">{note.content}</p>
       </section>
 
       <ul className="flex flex-wrap gap-2 px-6 md:px-12 mb-4 mt-8">

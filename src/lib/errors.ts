@@ -12,15 +12,15 @@ const humanizeErrors = (errors: Record<string, string[]>) => {
   const res: any[] = [];
 
   Object.keys(errors).forEach((key) => {
-    res.concat(
-      errors[key].map((errorMsg) => ({
+    res.push(
+      ...errors[key].map((errorMsg) => ({
         message: humanizeString(`${key} ${errorMsg}`),
         name: key,
         type: "server",
       }))
     );
   });
-
+  alert(JSON.stringify({ errors, res }));
   return res;
 };
 
@@ -37,7 +37,6 @@ const getAPIErrorMessages = async (error: APIError) => {
     const message = await res.text();
     return [unknownErrorMessage(message)];
   }
-
   const data = await res.json();
   if (data.errors) return humanizeErrors(data.errors);
 
