@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import NoteContent from "./note_content";
 import useStore from "../lib/store";
 import { Note } from "../lib/types";
 
@@ -20,9 +21,11 @@ function NotePreview({ note }: Props) {
     <Link to={`/notes/${note.id}`}>
       <div className="p-4 my-4 max-w-[40rem] mx-auto bg-gray-1 rounded-lg">
         <h2 className="font-bold mb-2">{note.title}</h2>
-        <p className="whitespace-pre-wrap break-words">
-          {content} {isMoreThanLimit && <span>...</span>}
-        </p>
+
+        <div>
+          <NoteContent content={content} />
+          {isMoreThanLimit && <span>...</span>}
+        </div>
 
         <ul className="flex flex-wrap mt-2 gap-2">
           {noteTags.map((tag) => (

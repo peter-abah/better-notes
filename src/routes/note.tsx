@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import dayjs from "dayjs";
 import useStore from "../lib/store";
 import useDocumentTitle from "../hooks/use_document_title";
+import NoteContent from "../components/note_content";
 import ResourceNotFound from "../components/resource_not_found";
 import ConfirmModal from "../components/confirm_modal";
 
@@ -73,7 +74,7 @@ function Note() {
 
       <section className="px-6 md:px-12 mb-4">
         <h1 className="text-xl mb-2">{note.title}</h1>
-        <p className="whitespace-pre-wrap break-words">{note.content}</p>
+        <NoteContent content={note.content} />
       </section>
 
       <ul className="flex flex-wrap gap-2 px-6 md:px-12 mb-4 mt-8">
