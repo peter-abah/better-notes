@@ -50,7 +50,7 @@ function Login() {
         <h1 className="text-2xl font-bold">BetterNotes</h1>
         <Link
           to="/sign_up"
-          className="border rounded-md border-primary px-3 py-2 hover:bg-primary hover:text-on-primary"
+          className="border rounded-lg border-primary text-primary px-4 py-2 hover:bg-primary hover:text-on-primary"
         >
           Sign up
         </Link>

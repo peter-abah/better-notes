@@ -8,20 +8,20 @@
 
 :root {
   --bg: 255 255 255;
-  --primary: 0 0 0;
+  --primary: 6 78 59;
   --gray-1: 245 245 245;
   --gray-2: 250 250 250;
-  --text: 0 0 0;
+  --text: 2 18 12;
   --on-primary: 255 255 255;
 }
 
 .theme-dark {
-  --bg: 0 0 0;
-  --primary: 255 255 255;
-  --gray-1: 38 38 38;
-  --gray-2: 23 23 23;
+  --bg: 29 29 29;
+  --primary: 6 78 59;
+  --gray-1: 51 51 51;
+  --gray-2: 57 57 57;
   --text: 255 255 255;
-  --on-primary: 0 0 0;
+  --on-primary: 255 255 255;
 }
 
 * {
