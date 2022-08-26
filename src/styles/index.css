@@ -59,16 +59,18 @@ button {
   .form-error {
     margin-left: 0.5rem;
     font-weight: bold;
-    color: #700;
+    @apply text-red;
   }
 
   .form-submit-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     margin-top: 1.5rem;
     padding: 0.75rem 2rem;
     border-radius: 0.5rem;
     font-weight: bold;
-    text-align: center;
     @apply bg-primary text-on-primary;
   }
 }

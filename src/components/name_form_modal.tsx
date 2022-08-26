@@ -45,14 +45,14 @@ function NameFormModal({
         <div className="flex justify-between mt-6">
           <button
             type="button"
-            className="px-4 py-2 bg-red text-white rounded-lg"
+            className="px-4 py-2 bg-red hover:bg-red/80 text-white rounded-lg text-sm"
             onClick={onClose}
           >
             Cancel
           </button>
           <button
             type="submit"
-            className="px-4 py-2 bg-primary text-on-primary rounded-lg"
+            className="px-4 py-2 bg-primary hover:bg-primary/80 text-on-primary text-sm rounded-lg"
           >
             Save
           </button>

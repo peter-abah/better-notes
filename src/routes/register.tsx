@@ -6,11 +6,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useAuth } from "../contexts/auth_context";
 import useDocumentTitle from "../hooks/use_document_title";
+import Spinner from "../components/spinner";
 import { getErrorMessages } from "../lib/errors";
 
 const formSchema = z
   .object({
-    email: z.string().email({ message: "Invalid email address" }),
+    email: z
+      .string()
+      .min(1, { message: "Enter email address" })
+      .email({ message: "Invalid email address" }),
     password: z
       .string()
       .min(8, { message: "Password must have minimum of 8 characters" }),
@@ -52,7 +56,10 @@ function Register() {
     <main className="bg-gray-1 min-h-screen">
       <header className="p-8 flex justify-between items-center">
         <h1 className="text-2xl font-bold">BetterNotes</h1>
-        <Link to="/sign_in" className="border rounded-md border-text px-3 py-2">
+        <Link
+          to="/sign_in"
+          className="border rounded-md border-primary px-3 py-2 hover:bg-primary hover:text-on-primary"
+        >
           Sign in
         </Link>
       </header>
@@ -71,7 +78,11 @@ function Register() {
               type="email"
               {...register("email")}
             />
-            {errors.email && <small role="alert">{errors.email.message}</small>}
+            {errors.email && (
+              <small role="alert" className="form-error">
+                {errors.email.message}
+              </small>
+            )}
           </div>
 
           <div className="form-field">
@@ -85,7 +96,9 @@ function Register() {
               {...register("password")}
             />
             {errors.password && (
-              <small role="alert">{errors.password.message}</small>
+              <small role="alert" className="form-error">
+                {errors.password.message}
+              </small>
             )}
           </div>
 
@@ -100,17 +113,24 @@ function Register() {
               {...register("password_confirmation")}
             />
             {errors.password_confirmation && (
-              <small role="alert">{errors.password_confirmation.message}</small>
+              <small role="alert" className="form-error">
+                {errors.password_confirmation.message}
+              </small>
             )}
           </div>
 
-          {errors.server && <small role="alert">{errors.server.message}</small>}
+          {errors.server && (
+            <small role="alert" className="form-error">
+              {errors.server.message}
+            </small>
+          )}
           <button
             type="submit"
-            className="form-submit-btn disabled:bg-primary/90"
+            className="form-submit-btn hover:bg-primary/70"
             disabled={isSubmitting}
           >
-            Sign up
+            <span className="mr-4">Sign up</span>
+            <Spinner isVisible={isSubmitting} />
           </button>
         </form>
       </section>

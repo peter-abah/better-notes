@@ -45,7 +45,7 @@ function NoteForm({ defaultValues, onSubmit }: Props) {
       <header className="flex justify-between px-6 md:px-12 py-4 sticky top-0 bg-bg">
         <button
           type="button"
-          className="mr-4"
+          className="mr-4 p-2 rounded-full hover:bg-gray-1"
           onClick={() => setIsConfirmModalOpen(true)}
         >
           <MdClose className="text-2xl" />
@@ -57,7 +57,7 @@ function NoteForm({ defaultValues, onSubmit }: Props) {
             type="submit"
             disabled={isSubmitting}
             form="note-form"
-            className="mr-4 disabled:text-text/80"
+            className="mr-4 disabled:text-text/80 p-2 rounded-full hover:bg-gray-1"
           >
             <MdDone className="text-2xl" />
             <span className="sr-only">Save</span>

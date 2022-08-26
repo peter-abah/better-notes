@@ -53,7 +53,11 @@ function Collection() {
   return (
     <main>
       <header className="sticky top-0 flex justify-between items-center p-6 md:px-12 bg-bg">
-        <button type="button" className="mr-4" onClick={toggleSideBar}>
+        <button
+          type="button"
+          className="mr-4 p-2 rounded-full hover:bg-gray-1"
+          onClick={toggleSideBar}
+        >
           <span className="sr-only">Menu</span>
           <MdMenu className="text-2xl" />
         </button>
@@ -65,7 +69,7 @@ function Collection() {
         <div className="flex items-center">
           <Link
             to={`/search/?collection_id=${collection.id}&label=${searchLabelText}`}
-            className="px-2 mr-2"
+            className="p-2 rounded-full hover:bg-gray-1 mr-2"
           >
             <span className="sr-only">Search</span>
             <MdSearch className="text-2xl" />
@@ -87,10 +91,10 @@ function Collection() {
         ))}
       </ul>
 
-      {/* Sends follection id to note form so it will ve the default selection */}
+      {/* Sends collection id to note form so it will ve the default selection */}
       <Link
         to={`/notes/new?collection_id=${collection.id}`}
-        className="fixed bottom-4 right-6 w-16 h-16 grid place-items-center rounded-full bg-primary text-on-primary"
+        className="fixed bottom-4 right-6 w-16 h-16 grid place-items-center rounded-full bg-primary text-on-primary hover:bg-primary/70"
       >
         <MdAdd className="text-3xl" />
       </Link>

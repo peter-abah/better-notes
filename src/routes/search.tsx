@@ -40,7 +40,7 @@ function Search() {
         <button
           type="button"
           onClick={() => navigate(-1)}
-          className="px-2 mr-2"
+          className="p-2 rounded-full hover:bg-gray-1 mr-2"
         >
           <span className="sr-only">Go back</span>
           <MdArrowBack className="text-2xl" />

@@ -13,7 +13,7 @@ interface Props {
 function OptionsMenu({ options, menuButton }: Props) {
   // eslint-disable-next-line no-param-reassign
   menuButton ||= (
-    <button type="button">
+    <button type="button" className="p-2 rounded-full hover:bg-gray-1">
       <MdMoreVert className="text-2xl" />
     </button>
   );

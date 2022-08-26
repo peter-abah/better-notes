@@ -270,6 +270,11 @@ export async function loadApp() {
 
 export function resetApp() {
   useStore.getState().resetStore();
+
+  // Reset theme
+  document.documentElement.classList.remove("theme-dark");
+
+  // Clear all pending requests
   requestsHandler.reset();
   window.localStorage.clear();
 }

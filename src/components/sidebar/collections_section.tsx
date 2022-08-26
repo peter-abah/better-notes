@@ -30,11 +30,11 @@ function CollectionsSection({ closeSidebar }: Props) {
 
   return (
     <section className="py-2 border-y">
-      <h2 className="font-bold px-6 py-3">
+      <h2>
         <button
           type="button"
           onClick={toggleCollectionSection}
-          className="flex justify-between items-center w-full"
+          className="font-bold px-6 py-3 flex justify-between items-center w-full hover:bg-gray-1"
         >
           Collections{" "}
           <MdExpandMore
@@ -50,7 +50,7 @@ function CollectionsSection({ closeSidebar }: Props) {
           {collections.map((collection) => (
             <li key={collection.id}>
               <Link
-                className="flex items-center py-3 px-6"
+                className="flex items-center py-3 px-6 hover:bg-gray-1"
                 to={`/collections/${collection.id}`}
                 onClick={closeSidebar}
               >
@@ -64,7 +64,7 @@ function CollectionsSection({ closeSidebar }: Props) {
 
       <button
         type="button"
-        className="flex items-center px-6 py-3"
+        className="flex items-center px-6 py-3 hover:bg-gray-1"
         onClick={() => setIsCollectionFormOpen(true)}
       >
         <MdAdd className="text-lg mr-3" />

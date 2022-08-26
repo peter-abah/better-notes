@@ -13,14 +13,14 @@ function ConfirmModal({ text, isOpen, onConfirm, onCancel }: Props) {
       <div className="flex justify-between">
         <button
           type="button"
-          className="px-4 py-2 bg-red text-white text-sm rounded-lg"
+          className="px-4 py-2 bg-red hover:bg-red/80 text-white text-sm rounded-lg"
           onClick={onCancel}
         >
           Cancel
         </button>
         <button
           type="button"
-          className="px-4 py-2 bg-primary text-on-primary text-sm rounded-lg"
+          className="px-4 py-2 bg-primary hover:bg-primary/80 text-on-primary text-sm rounded-lg"
           onClick={onConfirm}
         >
           Confirm

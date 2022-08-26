@@ -59,7 +59,7 @@ function TagsModal({ selectedTags, onTagsChange, onClose, isOpen }: Props) {
       <h2 className="text-xl mb-2">Tags</h2>
       <div className="mb-2">
         <label htmlFor="tag-name" className="sr-only">
-          Enter tag name
+          Search or create tag
         </label>
         <input
           type="text"
@@ -71,7 +71,11 @@ function TagsModal({ selectedTags, onTagsChange, onClose, isOpen }: Props) {
         />
       </div>
       {tagName && !tagExists && (
-        <button type="button" onClick={createNewTag}>
+        <button
+          type="button"
+          className="block w-full px-4 py-2 hover:bg-gray-1"
+          onClick={createNewTag}
+        >
           Create &quot;{tagName}&quot;
         </button>
       )}
@@ -81,11 +85,13 @@ function TagsModal({ selectedTags, onTagsChange, onClose, isOpen }: Props) {
             <input
               id={tag.id}
               type="checkbox"
-              className="mr-2"
+              className="mr-2 p-2 rounded-full hover:bg-gray-1"
               checked={!!selectedTagsMap[tag.id]}
               onChange={() => handleTagChange(tag.id)}
             />
-            <label htmlFor={tag.id}>{tag.name}</label>
+            <label className="grow hover:bg-gray-1" htmlFor={tag.id}>
+              {tag.name}
+            </label>
           </li>
         ))}
       </ul>

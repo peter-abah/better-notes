@@ -50,7 +50,11 @@ function Tag() {
   return (
     <main>
       <header className="sticky top-0 flex justify-between items-center p-6 md:px-12 bg-bg">
-        <button type="button" className="mr-4" onClick={toggleSideBar}>
+        <button
+          type="button"
+          className="mr-4 p-2 rounded-full hover:bg-gray-1"
+          onClick={toggleSideBar}
+        >
           <span className="sr-only">Menu</span>
           <MdMenu className="text-2xl" />
         </button>
@@ -60,7 +64,10 @@ function Tag() {
         </h1>
 
         <div className="flex items-center">
-          <Link to={`/search/?tag_id=${tag.id}`} className="px-2 mr-2">
+          <Link
+            to={`/search/?tag_id=${tag.id}`}
+            className="px-2 mr-2 p-2 rounded-full hover:bg-gray-1"
+          >
             <span className="sr-only">Search</span>
             <MdSearch className="text-2xl" />
           </Link>

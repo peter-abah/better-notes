@@ -5,6 +5,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuth } from "../contexts/auth_context";
 import useDocumentTitle from "../hooks/use_document_title";
+import Spinner from "../components/spinner";
 import { getErrorMessages } from "../lib/errors";
 
 const formSchema = z.object({
@@ -47,7 +48,10 @@ function Login() {
     <main className="bg-gray-1 min-h-screen">
       <header className="p-8 flex justify-between items-center">
         <h1 className="text-2xl font-bold">BetterNotes</h1>
-        <Link to="/sign_up" className="border rounded-md border-text px-3 py-2">
+        <Link
+          to="/sign_up"
+          className="border rounded-md border-primary px-3 py-2 hover:bg-primary hover:text-on-primary"
+        >
           Sign up
         </Link>
       </header>
@@ -97,10 +101,11 @@ function Login() {
 
           <button
             type="submit"
-            className="form-submit-btn disabled:!bg-primary/90"
+            className="form-submit-btn hover:bg-primary/70"
             disabled={isSubmitting}
           >
-            Sign in
+            <span className="mr-4">Sign in</span>
+            <Spinner isVisible={isSubmitting} />
           </button>
         </form>
       </section>

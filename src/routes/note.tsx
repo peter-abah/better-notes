@@ -47,15 +47,26 @@ function Note() {
   return (
     <main className="flex flex-col min-h-full">
       <header className="px-6 md:px-12 py-4 sticky top-0 flex bg-bg">
-        <button className="mr-auto" type="button" onClick={() => navigate(-1)}>
+        <button
+          className="mr-auto p-2 rounded-full hover:bg-gray-1"
+          type="button"
+          onClick={() => navigate(-1)}
+        >
           <MdBack className="text-2xl" />
         </button>
 
-        <Link className="mr-4" to={`/notes/edit/${note.id}`}>
+        <Link
+          className="mr-4 p-2 rounded-full hover:bg-gray-1"
+          to={`/notes/edit/${note.id}`}
+        >
           <MdEdit className="text-2xl" />
         </Link>
 
-        <button type="button" onClick={() => setIsConfirmModalOpen(true)}>
+        <button
+          className="p-2 rounded-full hover:bg-gray-1"
+          type="button"
+          onClick={() => setIsConfirmModalOpen(true)}
+        >
           <MdDelete className="text-2xl" />
         </button>
       </header>

@@ -16,14 +16,18 @@ function OptionsModal({ title, isOpen, items, onClose }: Props) {
     onClose();
   };
   return (
-    <Modal isOpen={isOpen} onRequestClose={onClose} className="!px-0">
+    <Modal
+      isOpen={isOpen}
+      onRequestClose={onClose}
+      className="!px-0 !bg-gray-2"
+    >
       {title && <h2 className="mb-3 text-lg px-4">{title}</h2>}
       <ul>
         {items.map(({ node, onClick }) => (
           <li key={node?.toString()}>
             <button
               type="button"
-              className="px-4 py-2 w-full hover:bg-gray-2"
+              className="px-4 py-2 w-full hover:bg-gray-1"
               onClick={withCloseModal(onClick)}
             >
               {node}

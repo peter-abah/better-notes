@@ -18,11 +18,10 @@ function TagSection({ closeSidebar }: Props) {
 
   return (
     <section className="py-2 border-b">
-      <h2 className="font-bold px-6 py-3">
-        <button
+      <h2><button
           type="button"
           onClick={toggleTagSection}
-          className="flex justify-between items-center w-full"
+          className="font-bold px-6 py-3 flex justify-between items-center w-full hover:bg-gray-1"
         >
           Tags{" "}
           <MdExpandMore
@@ -38,7 +37,7 @@ function TagSection({ closeSidebar }: Props) {
           {tags.map((tag) => (
             <li key={tag.id}>
               <Link
-                className="flex items-center py-3 px-6"
+                className="flex items-center py-3 px-6 hover:bg-gray-1"
                 to={`/tags/${tag.id}`}
                 onClick={closeSidebar}
               >
