@@ -29,7 +29,7 @@ function CollectionsSection({ closeSidebar }: Props) {
   };
 
   return (
-    <section className="py-2 border-y">
+    <section className="py-2 border-y border-gray-1">
       <h2>
         <button
           type="button"

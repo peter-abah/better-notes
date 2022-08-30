@@ -17,8 +17,9 @@ function TagSection({ closeSidebar }: Props) {
   const toggleTagSection = () => setIsTagSectionOpen((state) => !state);
 
   return (
-    <section className="py-2 border-b">
-      <h2><button
+    <section className="py-2 border-b border-gray-1">
+      <h2>
+        <button
           type="button"
           onClick={toggleTagSection}
           className="font-bold px-6 py-3 flex justify-between items-center w-full hover:bg-gray-1"

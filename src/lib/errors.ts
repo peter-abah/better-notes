@@ -20,7 +20,6 @@ const humanizeErrors = (errors: Record<string, string[]>) => {
       }))
     );
   });
-  alert(JSON.stringify({ errors, res }));
   return res;
 };
 

@@ -52,7 +52,7 @@ function Collection() {
 
   return (
     <main>
-      <header className="sticky top-0 flex justify-between items-center p-6 md:px-12 bg-bg">
+      <header className="sticky top-0 flex justify-between items-center px-6 py-4 md:px-12 bg-bg">
         <button
           type="button"
           className="mr-4 p-2 rounded-full hover:bg-gray-1"

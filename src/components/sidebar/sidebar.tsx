@@ -24,7 +24,7 @@ function SideBar({ isOpen, handleClose }: Props) {
 
   return (
     <aside className="fixed z-50 h-full top-0 left-0 w-80 py-6 overflow-auto flex flex-col bg-bg">
-      <header className="px-6 pb-6 flex justify-between">
+      <header className="px-6 pb-3 flex justify-between">
         <h1 className="text-lg font-bold">BetterNotes</h1>
         <button
           className="p-2 rounded-full hover:bg-gray-1"
