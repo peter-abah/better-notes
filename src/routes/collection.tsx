@@ -27,7 +27,7 @@ function Collection() {
     state.collections.find((c) => c.id === id)
   );
   const notes = useStore((state) =>
-    state.notes.filter((n) => n.collection_id === id)
+    state.getNotes().filter((n) => n.collection_id === id)
   );
   const updateCollection = useStore((state) => state.updateCollection);
   const deleteCollection = useStore((state) => state.deleteCollection);

@@ -11,7 +11,7 @@ function Search() {
   const navigate = useNavigate();
   useDocumentTitle("BetterNotes | Search");
 
-  const notes = useStore((state) => state.notes);
+  const notes = useStore((state) => state.getNotes());
   const filteredNotes = notes.filter((note) => {
     if (!query) return false;
     const collectionId = searchParams.get("collection_id");

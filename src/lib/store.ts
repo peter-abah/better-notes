@@ -16,6 +16,7 @@ interface Store {
   ) => Note;
   deleteNote: (id: Note["id"]) => void;
   updateNote: (note: Note) => Note;
+  getNotes: () => Note[];
   createCollection: (collectionData: Pick<Collection, "name">) => Collection;
   deleteCollection: (id: Collection["id"]) => void;
   updateCollection: (collection: Collection) => Collection;
@@ -35,7 +36,7 @@ const initialState = {
 
 const useStore = create<Store>()(
   persist(
-    immer((set) => ({
+    immer((set, get) => ({
       ...initialState,
 
       // NOTES
@@ -98,6 +99,11 @@ const useStore = create<Store>()(
           return { notes: filtered };
         });
       },
+
+      getNotes: () =>
+        [...get().notes].sort((b, a) =>
+          a.created_at.localeCompare(b.created_at)
+        ),
 
       // COLLECTIONS
       createCollection: (collectionData) => {

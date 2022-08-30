@@ -9,7 +9,7 @@ import SideBar from "../components/sidebar";
 
 function Notes() {
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
-  const notes = useStore((state) => state.notes);
+  const notes = useStore((state) => state.getNotes());
   useDocumentTitle("BetterNotes | Notes");
 
   const toggleSideBar = () => setIsSideBarOpen((state) => !state);
