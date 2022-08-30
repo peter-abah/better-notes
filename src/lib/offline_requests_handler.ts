@@ -1,4 +1,5 @@
 import { customFetch } from "../api";
+import { APIError } from "./errors";
 
 // Make headers to only be object rather a Headers object so
 // it can be easily serialized
@@ -21,8 +22,24 @@ interface HandlerOptions {
    * Since it is not checked in the request handler.
    */
   fetchFunc?: (url: string, options: CustomOptions) => void;
+
+  /*
+   * Decides what happens when an error happens during a request.
+   * It is passed the request and the error that occured and returns either undefined or null or a request(CustomRequest).
+   * If the request should be retried then the request should be returned else return null or undefined to skip the request
+   * The request can also be modified and the modified request will be retried
+   * By default all requests will be retried if the function is undefined
+   */
+  handleRequestError?: (
+    err: unknown,
+    request: CustomRequest
+  ) => CustomRequest | null | undefined;
 }
 
+function defaultRequestErrorHandler(e: any, req: CustomRequest) {
+  // Returning the req will make the request be retried by default
+  return req;
+}
 function loadRequests() {
   const queueData = window.localStorage.getItem("requests-queue");
   if (queueData) return JSON.parse(queueData);
@@ -38,10 +55,13 @@ const serializeRequests = (requests: CustomRequest[]) => {
 
 function initRequestsHandler(options: HandlerOptions = {}) {
   let { requests } = loadRequests();
-  const fetchFunc = options.fetchFunc || window.fetch;
   const timeToRetry = 100;
   let retries = 0;
   let timeoutId: number | null = null;
+
+  const fetchFunc = options.fetchFunc || window.fetch;
+  const handleRequestError =
+    options.handleRequestError || defaultRequestErrorHandler;
 
   const retryRequests = () => {
     if (timeoutId != null) {
@@ -65,20 +85,24 @@ function initRequestsHandler(options: HandlerOptions = {}) {
         return;
       }
 
+      const req = requests[0];
       try {
-        const req = requests[0];
-
         // The requests have to be synchronous
         // eslint-disable-next-line no-await-in-loop
         await fetchFunc(req.resource, req.options);
         // TODO: Add notifying app of sucessful request
         requests.shift();
       } catch (e) {
-        alert(JSON.stringify(e, Object.getOwnPropertyNames(e)));
-        alert(JSON.stringify([requests[0], "Request error"]));
-        retryRequests();
-        // TODO: some errors need the request to be cancelled
-        return;
+        const newRequest = handleRequestError(e, req);
+        if (newRequest) {
+          // Retry request, modifying it if modified bybthe error handler
+          requests[0] = newRequest;
+          retryRequests();
+          return;
+        }
+
+        // Else skip request
+        requests.shift();
       }
 
       serializeRequests(requests);
@@ -111,6 +135,20 @@ function initRequestsHandler(options: HandlerOptions = {}) {
   };
 }
 
-export const requestsHandler = initRequestsHandler({ fetchFunc: customFetch });
+function requestErrorHandler(err: unknown, req: CustomRequest) {
+  if (!(err instanceof APIError)) return;
+
+  // If it is a 404 error then skip request since the resource no longer exists
+  if (err.response.status === 404) return;
+
+  // Retry request in any other case
+  // eslint-disable-next-line consistent-return
+  return req;
+}
+
+export const requestsHandler = initRequestsHandler({
+  fetchFunc: customFetch,
+  handleRequestError: requestErrorHandler,
+});
 
 export default initRequestsHandler;
