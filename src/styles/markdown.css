@@ -331,6 +331,7 @@
 .markdown-body ol {
   margin-top: 0;
   margin-bottom: 0;
+  padding-left: 2em;
 }
 
 .markdown-body ol ol,
@@ -338,10 +339,15 @@
   list-style-type: lower-roman;
 }
 
+.markdown-body ul {
+  list-style: initial;
+}
+
 .markdown-body ul ul ol,
 .markdown-body ul ol ol,
 .markdown-body ol ul ol,
 .markdown-body ol ol ol {
+  list-style: initial;
   list-style-type: lower-alpha;
 }
 
