@@ -5,7 +5,4 @@ export { default as NewNote } from "./new_note";
 export { default as Collection } from "./collection";
 export { default as Tag } from "./tag";
 export { default as Search } from "./search";
-export { default as Register } from "./register";
-export { default as Login } from "./login";
 export { default as NotFound } from "./not_found";
-export { default as PrivateRoute } from "./private_route";

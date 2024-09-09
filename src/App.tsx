@@ -9,19 +9,10 @@ import {
   Collection,
   Tag,
   Search,
-  Register,
-  Login,
-  NotFound,
-  PrivateRoute,
 } from "./routes";
 import ErrorBoundary from "./components/error_boundary";
-import AuthProvider from "./contexts/auth_context";
 import useTheme from "./hooks/use_theme";
-import { loadApp } from "./lib/store";
 import { ThemeOptions } from "./lib/types";
-
-// Load data om app start
-loadApp();
 
 function App() {
   const { theme } = useTheme();
@@ -37,27 +28,19 @@ function App() {
 
   return (
     <ErrorBoundary>
-      <AuthProvider>
-        <Routes>
-          <Route element={<PrivateRoute />}>
-            <Route index element={<Notes />} />
-            <Route path="collections/:id" element={<Collection />} />
-            <Route path="tags/:id" element={<Tag />} />
-            <Route path="search" element={<Search />} />
-            <Route path="notes">
-              <Route index element={<Notes />} />
-              <Route path=":id" element={<Note />} />
-              <Route path="new" element={<NewNote />} />
-              <Route path="edit/:id" element={<EditNote />} />
-            </Route>
-          </Route>
-
-          <Route path="sign_up" element={<Register />} />
-          <Route path="sign_in" element={<Login />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-        <Toaster />
-      </AuthProvider>
+      <Routes>
+        <Route index element={<Notes />} />
+        <Route path="collections/:id" element={<Collection />} />
+        <Route path="tags/:id" element={<Tag />} />
+        <Route path="search" element={<Search />} />
+        <Route path="notes">
+          <Route index element={<Notes />} />
+          <Route path=":id" element={<Note />} />
+          <Route path="new" element={<NewNote />} />
+          <Route path="edit/:id" element={<EditNote />} />
+        </Route>
+      </Routes>
+      <Toaster />
     </ErrorBoundary>
   );
 }
